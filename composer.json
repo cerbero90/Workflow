@@ -1,0 +1,23 @@
+{
+    "name": "cerbero/workflow",
+    "description": "",
+    "authors": [
+        {
+            "name": "Andrea Marco Sartori",
+            "email": "22cerbero22@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Cerbero\\Workflow\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
