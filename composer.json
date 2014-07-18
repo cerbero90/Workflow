@@ -15,9 +15,6 @@
         "codeception/codeception": ">=2.0.2"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-0": {
             "Cerbero\\Workflow\\": "src/"
         }
