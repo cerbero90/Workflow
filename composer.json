@@ -1,6 +1,6 @@
 {
     "name": "cerbero/workflow",
-    "description": "",
+    "description": "Speed up the workflow to add new features to your Laravel projects.",
     "authors": [
         {
             "name": "Andrea Marco Sartori",
