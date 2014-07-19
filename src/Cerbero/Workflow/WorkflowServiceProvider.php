@@ -19,6 +19,8 @@ class WorkflowServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('cerbero/workflow');
+
+		$this->commands('cerbero.workflow.command');
 	}
 
 	/**
@@ -28,7 +30,10 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->bindShared('cerbero.workflow.command', function()
+		{
+			return new WorkflowCommand;
+		});
 	}
 
 	/**
@@ -38,7 +43,7 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('cerbero.workflow.command');
 	}
 
 }
