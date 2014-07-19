@@ -22,4 +22,20 @@ class FunctionalHelper extends \Codeception\Module
 		$I->amInPath($root);
 	}
 
+	/**
+	 * Run an artisan command.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$command
+	 * @return	void
+	 */
+	public function runArtisan($command)
+	{
+		$this->amInRoot();
+
+		$I = $this->getModule('Cli');
+
+		$I->runShellCommand("php artisan {$command}");
+	}
+
 }
