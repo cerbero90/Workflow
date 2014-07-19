@@ -7,4 +7,19 @@ namespace Codeception\Module;
 class FunctionalHelper extends \Codeception\Module
 {
 
+	/**
+	 * Move to the project root.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	public function amInRoot()
+	{
+		$root = base_path();
+
+		$I = $this->getModule('Filesystem');
+
+		$I->amInPath($root);
+	}
+
 }
