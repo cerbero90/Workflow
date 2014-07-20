@@ -15,11 +15,9 @@ class FunctionalHelper extends \Codeception\Module
 	 */
 	public function amInRoot()
 	{
-		$root = base_path();
-
 		$I = $this->getModule('Filesystem');
 
-		$I->amInPath($root);
+		$I->amInPath(base_path());
 	}
 
 	/**
