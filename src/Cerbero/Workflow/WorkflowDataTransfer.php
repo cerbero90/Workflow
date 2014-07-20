@@ -1,0 +1,100 @@
+<?php namespace Cerbero\Workflow;
+
+/**
+ * Data transfer object to create workflows.
+ *
+ * @author	Andrea Marco Sartori
+ */
+class WorkflowDataTransfer
+{
+
+	/**
+	 * @author	Andrea Marco Sartori
+	 * @var		array	$data	Workflow data.
+	 */
+	protected $data;
+	
+	/**
+	 * Set the dependencies.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	array	$data
+	 * @return	void
+	 */
+	public function __construct(array $data)
+	{
+		$this->data = $data;
+	}
+
+	/**
+	 * Retrieve data dynamically.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$attribute
+	 * @return	mixed
+	 */
+	public function __get($attribute)
+	{
+		$method = 'get' . ucfirst($attribute);
+
+		if(method_exists($this, $method)) return $this->{$method}();
+
+		return $this->data[$attribute];
+	}
+
+	/**
+	 * Set the method to trigger the workflow.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$method
+	 * @return	void
+	 */
+	public function setMethod($method)
+	{
+		$this->data['method'] = $method;
+
+		return $this;
+	}
+
+	/**
+	 * Retrieve the workflow name.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	string
+	 */
+	protected function getName()
+	{
+		$name = $this->data['name'];
+
+		return ucfirst($name);
+	}
+
+	/**
+	 * Retrieve the workflow path.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	string
+	 */
+	protected function getPath()
+	{
+		$path = app_path() . "/{$this->folder}/{$this->name}";
+
+		return str_replace('//', '/', $path);
+	}
+
+	/**
+	 * Retrieve the workflow namespace.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	string
+	 */
+	protected function getNamespace()
+	{
+		$chunks = [$this->data['namespace'], ucfirst($this->folder), $this->name];
+
+		$namespace = implode('\\', $chunks);
+
+		return str_replace('\\\\', '\\', $namespace);
+	}
+
+}
