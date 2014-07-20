@@ -44,6 +44,19 @@ class WorkflowCommand extends Command {
 	}
 
 	/**
+	 * Retrieve the workflow data.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	array
+	 */
+	protected function getWorkflow()
+	{
+		$data = $this->argument() + $this->option();
+
+		return new WorkflowDataTransfer($data);
+	}
+
+	/**
 	 * Get the console command arguments.
 	 *
 	 * @return array
