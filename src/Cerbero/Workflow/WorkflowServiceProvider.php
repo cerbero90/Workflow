@@ -30,9 +30,20 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bindShared('cerbero.workflow.command', function()
+		$this->registerCommand();
+	}
+
+	/**
+	 * Register the Artisan command.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function registerCommand()
+	{
+		$this->app->bindShared('cerbero.workflow.command', function($app)
 		{
-			return new WorkflowCommand;
+			return $app->make('Cerbero\Workflow\WorkflowCommand');
 		});
 	}
 
