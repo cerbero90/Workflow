@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Cerbero\Workflow\Scaffolding\GeneratorInterface as Scaffolding;
 
 class WorkflowCommand extends Command {
 
@@ -25,9 +26,11 @@ class WorkflowCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Scaffolding $scaffolding)
 	{
 		parent::__construct();
+
+		$this->scaffolding = $scaffolding;
 	}
 
 	/**
