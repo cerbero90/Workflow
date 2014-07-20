@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Cerbero\Workflow\Scaffolding\GeneratorInterface as Scaffolding;
 
 class WorkflowCommand extends Command {
 
@@ -25,9 +26,11 @@ class WorkflowCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Scaffolding $scaffolding)
 	{
 		parent::__construct();
+
+		$this->scaffolding = $scaffolding;
 	}
 
 	/**
@@ -37,7 +40,26 @@ class WorkflowCommand extends Command {
 	 */
 	public function fire()
 	{
-		//
+		$method = $this->ask('Method name to trigger the workflow:', 'run');
+
+		$workflow = $this->getWorkflow()->setMethod($method);
+
+		$this->scaffolding->generate($workflow);
+
+		$this->info("The workflow [{$workflow->name}] has been created successfully.");
+	}
+
+	/**
+	 * Retrieve the workflow data.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	array
+	 */
+	protected function getWorkflow()
+	{
+		$data = $this->argument() + $this->option();
+
+		return new WorkflowDataTransfer($data);
 	}
 
 	/**
@@ -60,8 +82,8 @@ class WorkflowCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('folder', '-f', InputOption::VALUE_OPTIONAL, 'The folder to place files in.', null),
-			array('namespace', '-n', InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
+			array('folder', '-f', InputOption::VALUE_OPTIONAL, 'The folder to place files in.', 'workflows'),
+			array('namespace', '-ns', InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
 		);
 	}
 

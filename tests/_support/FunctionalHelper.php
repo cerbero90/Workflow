@@ -15,11 +15,9 @@ class FunctionalHelper extends \Codeception\Module
 	 */
 	public function amInRoot()
 	{
-		$root = base_path();
-
 		$I = $this->getModule('Filesystem');
 
-		$I->amInPath($root);
+		$I->amInPath(base_path());
 	}
 
 	/**
@@ -35,7 +33,40 @@ class FunctionalHelper extends \Codeception\Module
 
 		$I = $this->getModule('Cli');
 
-		$I->runShellCommand("php artisan {$command}");
+		$I->runShellCommand("php artisan {$command} --no-interaction");
+	}
+
+	/**
+	 * Move to the workflows path.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	public function amInWorkflows()
+	{
+		$I = $this->getModule('Filesystem');
+
+		$I->amInPath(app_path('workflows'));
+	}
+
+	/**
+	 * Check if the workflow is bound.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$workflow
+	 * @return	void
+	 */
+	public function seeWorkflowBound($workflow)
+	{
+		$I = $this->getModule('Filesystem');
+
+		$I->openFile('bindings.php');
+
+		$I->seeInThisFile('<?php');
+
+		$I->seeInThisFile("// Bind the [{$workflow}] workflow");
+
+		$I->seeInThisFile("App::bind('\Workflows\\{$workflow}\\{$workflow}Interface', '\Workflows\\{$workflow}\\{$workflow}')");
 	}
 
 }

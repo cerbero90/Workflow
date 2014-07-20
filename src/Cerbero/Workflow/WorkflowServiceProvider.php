@@ -30,9 +30,49 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bindShared('cerbero.workflow.command', function()
+		$this->registerGenerator();
+
+		$this->registerCompiler();
+
+		$this->registerCommand();
+	}
+
+	/**
+	 * Register the scaffolding generator.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function registerGenerator()
+	{
+		$this->app->bind('Cerbero\Workflow\Scaffolding\GeneratorInterface', 'Cerbero\Workflow\Scaffolding\Generator');
+	}
+
+	/**
+	 * Register the templates compiler.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function registerCompiler()
+	{
+		$this->app->bind('Cerbero\Workflow\Scaffolding\CompilerInterface', function($app)
 		{
-			return new WorkflowCommand;
+			return $app->make('Cerbero\Workflow\Scaffolding\ViewCompiler');
+		});
+	}
+
+	/**
+	 * Register the Artisan command.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function registerCommand()
+	{
+		$this->app->bindShared('cerbero.workflow.command', function($app)
+		{
+			return $app->make('Cerbero\Workflow\WorkflowCommand');
 		});
 	}
 
