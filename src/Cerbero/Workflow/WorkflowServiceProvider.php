@@ -32,6 +32,8 @@ class WorkflowServiceProvider extends ServiceProvider {
 	{
 		$this->registerGenerator();
 
+		$this->registerCompiler();
+
 		$this->registerCommand();
 	}
 
@@ -44,6 +46,20 @@ class WorkflowServiceProvider extends ServiceProvider {
 	protected function registerGenerator()
 	{
 		$this->app->bind('Cerbero\Workflow\Scaffolding\GeneratorInterface', 'Cerbero\Workflow\Scaffolding\Generator');
+	}
+
+	/**
+	 * Register the templates compiler.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function registerCompiler()
+	{
+		$this->app->bind('Cerbero\Workflow\Scaffolding\CompilerInterface', function($app)
+		{
+			return $app->make('Cerbero\Workflow\Scaffolding\ViewCompiler');
+		});
 	}
 
 	/**
