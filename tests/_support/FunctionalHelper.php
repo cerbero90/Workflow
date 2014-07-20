@@ -49,4 +49,24 @@ class FunctionalHelper extends \Codeception\Module
 		$I->amInPath(app_path('workflows'));
 	}
 
+	/**
+	 * Check if the workflow is bound.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$workflow
+	 * @return	void
+	 */
+	public function seeWorkflowBound($workflow)
+	{
+		$I = $this->getModule('Filesystem');
+
+		$I->openFile('bindings.php');
+
+		$I->seeInThisFile('<?php');
+
+		$I->seeInThisFile("// Bind the [{$workflow}] workflow");
+
+		$I->seeInThisFile("App::bind('\Workflows\\{$workflow}\\{$workflow}Interface', '\Workflows\\{$workflow}\\{$workflow}')");
+	}
+
 }
