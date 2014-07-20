@@ -40,7 +40,13 @@ class WorkflowCommand extends Command {
 	 */
 	public function fire()
 	{
-		//
+		$method = $this->ask('Method name to trigger the workflow:', 'run');
+
+		$workflow = $this->getWorkflow()->setMethod($method);
+
+		$this->scaffolding->generate($workflow);
+
+		$this->info("The workflow [{$workflow->name}] has been created successfully.");
 	}
 
 	/**
