@@ -3,4 +3,7 @@
 # suite for unit (internal) tests.
 class_name: UnitTester
 modules:
-    enabled: [Asserts, UnitHelper]
+    enabled: [Asserts, UnitHelper, Laravel4]
+    config:
+        Laravel4:
+            start: '../../../bootstrap/start.php'
