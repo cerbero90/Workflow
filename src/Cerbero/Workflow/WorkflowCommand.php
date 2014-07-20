@@ -76,8 +76,8 @@ class WorkflowCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('folder', '-f', InputOption::VALUE_OPTIONAL, 'The folder to place files in.', null),
-			array('namespace', '-n', InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
+			array('folder', '-f', InputOption::VALUE_OPTIONAL, 'The folder to place files in.', 'workflows'),
+			array('namespace', '-ns', InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
 		);
 	}
 
