@@ -36,4 +36,17 @@ class FunctionalHelper extends \Codeception\Module
 		$I->runShellCommand("php artisan {$command} --no-interaction");
 	}
 
+	/**
+	 * Move to the workflows path.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	public function amInWorkflows()
+	{
+		$I = $this->getModule('Filesystem');
+
+		$I->amInPath(app_path('workflows'));
+	}
+
 }
