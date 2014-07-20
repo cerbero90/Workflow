@@ -33,7 +33,7 @@ class FunctionalHelper extends \Codeception\Module
 
 		$I = $this->getModule('Cli');
 
-		$I->runShellCommand("php artisan {$command}");
+		$I->runShellCommand("php artisan {$command} --no-interaction");
 	}
 
 }
