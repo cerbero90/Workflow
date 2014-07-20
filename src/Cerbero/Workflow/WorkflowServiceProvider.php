@@ -30,7 +30,20 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->registerGenerator();
+
 		$this->registerCommand();
+	}
+
+	/**
+	 * Register the scaffolding generator.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function registerGenerator()
+	{
+		$this->app->bind('Cerbero\Workflow\Scaffolding\GeneratorInterface', 'Cerbero\Workflow\Scaffolding\Generator');
 	}
 
 	/**
