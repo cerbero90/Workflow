@@ -1,3 +1,4 @@
+![](http://imageshack.com/a/img674/6060/59edf2.png "Workflow")
 # Workflow #
 
 Speed up the workflow to add new features to your Laravel projects.
