@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Cerbero\Workflow\Scaffolding\GeneratorInterface as Scaffolding;
+use Illuminate\Support\Facades\Config;
 
 class WorkflowCommand extends Command {
 
@@ -88,8 +89,8 @@ class WorkflowCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('folder', null, InputOption::VALUE_OPTIONAL, 'The folder to place files in.', 'workflows'),
-			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
+			array('folder', null, InputOption::VALUE_OPTIONAL, 'The folder to place files.', Config::get('workflow::folder')),
+			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The workflow namespace.', Config::get('workflow::namespace')),
 		);
 	}
 
