@@ -11,6 +11,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
+        Config::set('workflow::folder', 'workflows');
+
+        Config::set('workflow::namespace', '');
+
+        $this->wf = new Workflow(['name' => 'foo']);
     }
 
     protected function _after()
@@ -25,9 +30,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveTheName()
     {
-    	$wf = new Workflow(['name' => 'foo']);
-
-    	$this->assertEquals('Foo', $wf->name);
+    	$this->assertEquals('Foo', $this->wf->name);
     }
 
     /**
@@ -38,9 +41,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveTheFolder()
     {
-    	$wf = new Workflow(['folder' => 'foo']);
-
-    	$this->assertEquals('foo', $wf->folder);
+    	$this->assertEquals('workflows', $this->wf->folder);
     }
 
     /**
@@ -51,11 +52,9 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveThePath()
     {
-    	$wf = new Workflow(['name' => 'foo', 'folder' => 'workflows']);
-
     	$expected = app_path() . '/workflows/Foo';
 
-    	$this->assertEquals($expected, $wf->path);
+    	$this->assertEquals($expected, $this->wf->path);
     }
 
     /**
@@ -66,26 +65,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveThePathWithTheFolderOptionSet()
     {
-    	$wf = new Workflow(['name' => 'foo', 'folder' => 'bar']);
+        Config::set('workflow::folder', 'bar');
 
     	$expected = app_path() . '/bar/Foo';
 
-    	$this->assertEquals($expected, $wf->path);
-    }
-
-    /**
-     * @testdox	Retrieve the path with the folder option set to null.
-     *
-     * @author	Andrea Marco Sartori
-     * @return	void
-     */
-    public function testRetrieveThePathWithTheFolderOptionSetToNull()
-    {
-    	$wf = new Workflow(['name' => 'foo', 'folder' => null]);
-
-    	$expected = app_path() . '/Foo';
-
-    	$this->assertEquals($expected, $wf->path);
+    	$this->assertEquals($expected, $this->wf->path);
     }
 
     /**
@@ -96,9 +80,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveTheNamespace()
     {
-    	$wf = new Workflow(['namespace' => 'Foo', 'name' => 'bar', 'folder' => 'baz']);
+        Config::set('workflow::namespace', 'Foo');
 
-    	$this->assertEquals('Foo\Baz\Bar', $wf->namespace);
+        $wf = new Workflow(['name' => 'bar']);
+
+    	$this->assertEquals('Foo\Workflows\Bar', $wf->namespace);
     }
 
     /**
@@ -109,22 +95,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveTheNamespaceWithTheNamespaceOptionSetToNull()
     {
-    	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => 'baz']);
-
-    	$this->assertEquals('Baz\Bar', $wf->namespace);
-    }
-
-    /**
-     * @testdox	Retrieve the namespace with the namespace option set to null.
-     *
-     * @author	Andrea Marco Sartori
-     * @return	void
-     */
-    public function testRetrieveTheNamespaceWithTheNamespaceAndFolderOptionsSetToNull()
-    {
-    	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => null]);
-
-    	$this->assertEquals('Bar', $wf->namespace);
+    	$this->assertEquals('Workflows\Foo', $this->wf->namespace);
     }
 
     /**
@@ -135,13 +106,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testSetTheMethodToTriggerTheWorkflow()
     {
-    	$wf = new Workflow([]);
-
-    	$workflow = $wf->setMethod('foo');
+    	$workflow = $this->wf->setMethod('foo');
 
         $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
 
-    	$this->assertEquals('foo', $wf->method);
+    	$this->assertEquals('foo', $this->wf->method);
     }
 
     /**
@@ -152,13 +121,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testSetTheDecorators()
     {
-    	$wf = new Workflow([]);
-
-    	$workflow = $wf->setDecorators('foo bar');
+    	$workflow = $this->wf->setDecorators('foo bar');
 
         $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
 
-    	$this->assertSame(['Foo', 'Bar'], $wf->decorators);
+    	$this->assertSame(['Foo', 'Bar'], $this->wf->decorators);
     }
 
     /**
@@ -169,13 +136,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testSetDecoratorsToEmptyArrayIfNotSet()
     {
-    	$wf = new Workflow([]);
-
-    	$workflow = $wf->setDecorators('');
+    	$workflow = $this->wf->setDecorators('');
 
         $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
 
-    	$this->assertSame([], $wf->decorators);
+    	$this->assertSame([], $this->wf->decorators);
     }
 
     /**
@@ -186,11 +151,9 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveSetProperties()
     {
-    	$wf = new Workflow([]);
+    	$this->wf->decorator = 'Foo';
 
-    	$wf->decorator = 'Foo';
-
-    	$this->assertEquals('Foo', $wf->decorator);
+    	$this->assertEquals('Foo', $this->wf->decorator);
     }
 
     /**
@@ -201,9 +164,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveTheLowerCasedName()
     {
-    	$wf = new Workflow(['name' => 'Foo']);
-
-    	$this->assertEquals('foo', $wf->lowername);
+    	$this->assertEquals('foo', $this->wf->lowername);
     }
 
 }

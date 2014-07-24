@@ -1,5 +1,7 @@
 <?php namespace Cerbero\Workflow;
 
+use Illuminate\Support\Facades\Config;
+
 /**
  * Data transfer object to create workflows.
  *
@@ -86,6 +88,17 @@ class WorkflowDataTransfer
 	}
 
 	/**
+	 * Retrieve the workflow folder.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	string
+	 */
+	protected function getFolder()
+	{
+		return Config::get('workflow::folder');
+	}
+
+	/**
 	 * Retrieve the workflow path.
 	 *
 	 * @author	Andrea Marco Sartori
@@ -106,7 +119,7 @@ class WorkflowDataTransfer
 	 */
 	protected function getNamespace()
 	{
-		$chunks = [$this->data['namespace'], ucfirst($this->folder), $this->name];
+		$chunks = [Config::get('workflow::namespace'), ucfirst($this->folder), $this->name];
 
 		$namespace = ltrim(implode('\\', $chunks), '\\');
 
