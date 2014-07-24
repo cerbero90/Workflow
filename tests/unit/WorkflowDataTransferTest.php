@@ -111,7 +111,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     {
     	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => 'baz']);
 
-    	$this->assertEquals('\Baz\Bar', $wf->namespace);
+    	$this->assertEquals('Baz\Bar', $wf->namespace);
     }
 
     /**
@@ -124,7 +124,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     {
     	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => null]);
 
-    	$this->assertEquals('\Bar', $wf->namespace);
+    	$this->assertEquals('Bar', $wf->namespace);
     }
 
     /**
