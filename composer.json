@@ -19,5 +19,15 @@
             "Cerbero\\Workflow\\": "src/"
         }
     },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan config:publish cerbero/workflow",
+            "php artisan view:publish cerbero/workflow"
+        ],
+        "post-update-cmd": [
+            "php artisan config:publish cerbero/workflow",
+            "php artisan view:publish cerbero/workflow"
+        ]
+    },
     "minimum-stability": "stable"
 }
