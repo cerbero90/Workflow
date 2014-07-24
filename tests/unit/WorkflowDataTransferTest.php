@@ -11,6 +11,10 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
+        Config::set('workflow::folder', 'workflows');
+
+        Config::set('workflow::namespace', '');
+
         $this->wf = new Workflow(['name' => 'foo']);
     }
 
@@ -61,12 +65,10 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveThePathWithTheFolderOptionSet()
     {
-    	$wf = new Workflow(['name' => 'foo', 'folder' => 'bar']);
+        Config::set('workflow::folder', 'bar');
 
     	$expected = app_path() . '/bar/Foo';
 
-    	$this->assertEquals($expected, $wf->path);
-    }
     	$this->assertEquals($expected, $this->wf->path);
     }
 
@@ -78,22 +80,11 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testRetrieveTheNamespace()
     {
-    	$wf = new Workflow(['namespace' => 'Foo', 'name' => 'bar', 'folder' => 'baz']);
+        Config::set('workflow::namespace', 'Foo');
 
-    	$this->assertEquals('Foo\Baz\Bar', $wf->namespace);
-    }
+        $wf = new Workflow(['name' => 'bar']);
 
-    /**
-     * @testdox	Retrieve the namespace with the namespace option set to null.
-     *
-     * @author	Andrea Marco Sartori
-     * @return	void
-     */
-    public function testRetrieveTheNamespaceWithTheNamespaceOptionSetToNull()
-    {
-    	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => 'baz']);
-
-    	$this->assertEquals('Baz\Bar', $wf->namespace);
+    	$this->assertEquals('Foo\Workflows\Bar', $wf->namespace);
     }
 
     /**
