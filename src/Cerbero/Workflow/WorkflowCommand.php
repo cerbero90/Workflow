@@ -22,6 +22,12 @@ class WorkflowCommand extends Command {
 	protected $description = 'Speed up the workflow to add new features.';
 
 	/**
+	 * @author	Andrea Marco Sartori
+	 * @var		Cerbero\Workflow\Scaffolding\GeneratorInterface	$scaffolding	Scaffolding generator.
+	 */
+	protected $scaffolding;
+
+	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
