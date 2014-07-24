@@ -108,7 +108,7 @@ class WorkflowDataTransfer
 	{
 		$chunks = [$this->data['namespace'], ucfirst($this->folder), $this->name];
 
-		$namespace = implode('\\', $chunks);
+		$namespace = ltrim(implode('\\', $chunks), '\\');
 
 		return str_replace('\\\\', '\\', $namespace);
 	}
