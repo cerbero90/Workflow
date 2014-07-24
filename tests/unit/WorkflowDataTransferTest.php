@@ -144,6 +144,23 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     	$this->assertEquals('foo', $wf->method);
     }
 
+    /**
+     * @testdox	Set the decorators.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testSetTheDecorators()
+    {
+    	$wf = new Workflow([]);
+
+    	$workflow = $wf->setDecorators('foo bar');
+
+        $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
+
+    	$this->assertSame(['Foo', 'Bar'], $wf->decorators);
+    }
+
 
     	$workflow = $wf->setMethod('bar');
 
