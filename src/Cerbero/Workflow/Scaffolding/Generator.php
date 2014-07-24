@@ -97,7 +97,7 @@ class Generator implements GeneratorInterface
 	 */
 	protected function createMainDirectory()
 	{
-		$this->directory = app_path('workflows');
+		$this->directory = app_path($this->workflow->folder);
 
 		if( ! $this->file->isDirectory($this->directory))
 		{
