@@ -62,4 +62,4 @@ To avoid adding the previous options every time, you may run:
 ```
 php artisan config:publish cerbero/workflow
 ```
-and edit `app/config/packages/cerbero/workflow/config.php`
+and set them in `app/config/packages/cerbero/workflow/config.php`
