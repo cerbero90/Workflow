@@ -3,7 +3,6 @@
 /**
  * Main workflow class.
  *
- * @author	Andrea Marco Sartori
  */
 class $name$ implements $name$Interface
 {
