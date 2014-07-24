@@ -1,4 +1,4 @@
 $namespace$\Decorators\$decorator$
 $tab$(
-$tab$	#bind#
+$tab$	new #bind#
 $tab$)
