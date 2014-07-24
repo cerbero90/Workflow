@@ -135,7 +135,15 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testSetTheMethodToTriggerTheWorkflow()
     {
-    	$wf = new Workflow(['name' => 'foo']);
+    	$wf = new Workflow([]);
+
+    	$workflow = $wf->setMethod('foo');
+
+        $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
+
+    	$this->assertEquals('foo', $wf->method);
+    }
+
 
     	$workflow = $wf->setMethod('bar');
 
