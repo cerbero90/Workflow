@@ -48,11 +48,23 @@ class ViewCompiler implements CompilerInterface
 	 */
 	public function compile($template, Workflow $workflow)
 	{
-		$path = $this->view->make("workflow::{$template}")->getPath();
-
-		$content = $this->file->get($path);
+		$content = $this->getContent($template);
 
 		return $this->templatePopulatedBy($workflow, $content);
+	}
+
+	/**
+	 * Retrieve the content of a template.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$template
+	 * @return	string
+	 */
+	protected function getContent($template)
+	{
+		$path = $this->view->make("workflow::{$template}")->getPath();
+
+		return $this->file->get($path);
 	}
 
 	/**
