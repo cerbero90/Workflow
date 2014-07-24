@@ -161,12 +161,23 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     	$this->assertSame(['Foo', 'Bar'], $wf->decorators);
     }
 
+    /**
+     * @testdox	Set decorators to empty array if not set.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testSetDecoratorsToEmptyArrayIfNotSet()
+    {
+    	$wf = new Workflow([]);
 
-    	$workflow = $wf->setMethod('bar');
+    	$workflow = $wf->setDecorators('');
 
         $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
 
-    	$this->assertEquals('bar', $wf->method);
+    	$this->assertSame([], $wf->decorators);
+    }
+
     }
 
 }
