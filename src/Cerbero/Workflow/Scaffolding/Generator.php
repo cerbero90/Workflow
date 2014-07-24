@@ -85,6 +85,8 @@ class Generator implements GeneratorInterface
 		$this->createFileFromTemplate('interface', "{$name}/{$name}Interface.php");
 
 		$this->createFileFromTemplate('class', "{$name}/{$name}.php");
+
+		$this->createDecorators($this->workflow->decorators);
 	}
 
 	/**
@@ -138,6 +140,27 @@ class Generator implements GeneratorInterface
 		$success = $this->file->put($path, $content);
 
 		if( ! $success) throw new FileCreationException($path);
+	}
+
+	/**
+	 * Create the decorators.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	array	$decorators
+	 * @return	void
+	 */
+	protected function createDecorators(array $decorators = array())
+	{
+		$folder = "{$this->workflow->name}/decorators";
+
+		$this->createDirectory($folder);
+
+		foreach ($decorators as $decorator)
+		{
+			$this->workflow->decorator = $decorator;
+
+			$this->createFileFromTemplate('decorator', "{$folder}/{$decorator}.php");
+		}
 	}
 
 	/**
