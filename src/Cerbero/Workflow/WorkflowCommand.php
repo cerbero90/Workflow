@@ -58,8 +58,8 @@ class WorkflowCommand extends Command {
 		$data = $this->argument() + $this->option();
 
 		return with(new WorkflowDataTransfer($data))
-						->setMethod($this->ask('Method name to trigger the workflow:', 'run'))
-						->setDecorators($this->ask('Space-separated decorators:'));
+						->setMethod($this->ask('Trigger method name: ', 'run'))
+						->setDecorators($this->ask('Decorators: '));
 	}
 
 	/**
