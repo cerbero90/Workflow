@@ -113,4 +113,15 @@ class WorkflowDataTransfer
 		return str_replace('\\\\', '\\', $namespace);
 	}
 
+	/**
+	 * Retrieve the lower cased name.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	string
+	 */
+	protected function getLowername()
+	{
+		return lcfirst($this->name);
+	}
+
 }
