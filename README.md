@@ -24,11 +24,11 @@ require app_path('workflows/bindings.php');
 
 and the workflows directory to `composer.json` like so:
 ```
-	"autoload": {
-		"classmap": [
-			"app/workflows"
-		]
-	}
+"autoload": {
+	"classmap": [
+		"app/workflows"
+	]
+}
 ```
 
 ### Basic Usage ###
@@ -42,7 +42,7 @@ You will be prompted to insert two *optional* information:
  * the method name to run the workflow, if not provided `run()` will be used.
  * a list of decorators, you may separate them with any non-letter characters.
 
-If this is the first workflow you created, be sure to follow the [last step of the installation](https://github.com/cerbero90/Workflow#important).
+If this is the first workflow you have created, be sure to follow the [last step of the installation](#important).
 
 ### Advanced Usage ###
 
@@ -55,6 +55,8 @@ You may also set the namespace used by your project:
 ```
 php artisan workflow --namespace="Your\Namespace" YourWorkflowName
 ```
+
+---
 
 To avoid adding the previous options every time, you may run:
 ```
