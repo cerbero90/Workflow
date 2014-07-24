@@ -57,6 +57,22 @@ class WorkflowDataTransfer
 	}
 
 	/**
+	 * Set the decorators.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$decorators
+	 * @return	void
+	 */
+	public function setDecorators($decorators)
+	{
+		preg_match_all('/([a-z]+)/i', $decorators, $matches);
+
+		$this->data['decorators'] = array_map('ucfirst', $matches[0]);
+
+		return $this;
+	}
+
+	/**
 	 * Retrieve the workflow name.
 	 *
 	 * @author	Andrea Marco Sartori
