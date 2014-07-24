@@ -31,7 +31,7 @@ and the workflows directory to `composer.json` like so:
 }
 ```
 
-### Basic Usage ###
+### Usage ###
 
 Run this command to create a new workflow:
 ```
@@ -44,22 +44,18 @@ You will be prompted to insert two *optional* information:
 
 If this is the first workflow you have created, be sure to follow the [last step of the installation](#important).
 
-### Advanced Usage ###
+### Customization ###
 
-You may set a different folder to save your workflows:
-```
-php artisan workflow --folder="YourFolder" YourWorkflowName
-```
-
-You may also set the namespace used by your project:
-```
-php artisan workflow --namespace="Your\Namespace" YourWorkflowName
-```
-
----
-
-To avoid adding the previous options every time, you may run:
+To set your project namespace and a different folder to save the workflows, run:
 ```
 php artisan config:publish cerbero/workflow
 ```
-and set them in `app/config/packages/cerbero/workflow/config.php`
+and edit `app/config/packages/cerbero/workflow/config.php`
+
+---
+
+To change the templates of the generated files, run:
+```
+php artisan view:publish cerbero/workflow
+```
+and edit the files in `app/views/packages/cerbero/workflow/`
