@@ -40,9 +40,7 @@ class WorkflowCommand extends Command {
 	 */
 	public function fire()
 	{
-		$method = $this->ask('Method name to trigger the workflow:', 'run');
-
-		$workflow = $this->getWorkflow()->setMethod($method);
+		$workflow = $this->getWorkflow();
 
 		$this->scaffolding->generate($workflow);
 
@@ -59,7 +57,9 @@ class WorkflowCommand extends Command {
 	{
 		$data = $this->argument() + $this->option();
 
-		return new WorkflowDataTransfer($data);
+		return with(new WorkflowDataTransfer($data))
+						->setMethod($this->ask('Method name to trigger the workflow:', 'run'))
+						->setDecorators($this->ask('Space-separated decorators:'));
 	}
 
 	/**
