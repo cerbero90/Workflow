@@ -178,6 +178,21 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     	$this->assertSame([], $wf->decorators);
     }
 
+    /**
+     * @testdox	Retrieve set properties.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testRetrieveSetProperties()
+    {
+    	$wf = new Workflow([]);
+
+    	$wf->decorator = 'Foo';
+
+    	$this->assertEquals('Foo', $wf->decorator);
+    }
+
     }
 
 }
