@@ -11,11 +11,11 @@ $I->seeWorkflowBound('Registration');
 
 $I->openFile('Registration/RegistrationInterface.php');
 $I->seeInThisFile('interface RegistrationInterface');
-$I->seeInThisFile('run($data)');
+$I->seeInThisFile('run($data = null)');
 
 $I->openFile('Registration/Registration.php');
 $I->seeInThisFile('class Registration implements RegistrationInterface');
-$I->seeInThisFile('run($data)');
+$I->seeInThisFile('run($data = null)');
 
 $I->seeInShellOutput('The workflow [Registration] has been created successfully.');
 
