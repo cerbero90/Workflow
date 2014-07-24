@@ -193,6 +193,17 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     	$this->assertEquals('Foo', $wf->decorator);
     }
 
+    /**
+     * @testdox	Retrieve the lower cased name.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testRetrieveTheLowerCasedName()
+    {
+    	$wf = new Workflow(['name' => 'Foo']);
+
+    	$this->assertEquals('foo', $wf->lowername);
     }
 
 }
