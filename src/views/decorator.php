@@ -30,7 +30,7 @@ class $decorator$ implements $name$Interface
 	 *
 	 * @param	$data
 	 */
-	public function $method$($data)
+	public function $method$($data = null)
 	{
 		$this->$lowername$->$method$($data);
 	}

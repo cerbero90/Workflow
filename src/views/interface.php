@@ -12,6 +12,6 @@ interface $name$Interface
 	 *
 	 * @param	$data
 	 */
-	public function $method$($data);
+	public function $method$($data = null);
 
 }
