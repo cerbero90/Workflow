@@ -8,7 +8,7 @@ interface $name$Interface
 {
 
 	/**
-	 * Trigger the workflow.
+	 * Trigger the $lowername$ workflow.
 	 *
 	 * @param	$data
 	 */

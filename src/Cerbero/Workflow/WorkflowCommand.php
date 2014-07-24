@@ -40,9 +40,7 @@ class WorkflowCommand extends Command {
 	 */
 	public function fire()
 	{
-		$method = $this->ask('Method name to trigger the workflow:', 'run');
-
-		$workflow = $this->getWorkflow()->setMethod($method);
+		$workflow = $this->getWorkflow();
 
 		$this->scaffolding->generate($workflow);
 
@@ -59,7 +57,9 @@ class WorkflowCommand extends Command {
 	{
 		$data = $this->argument() + $this->option();
 
-		return new WorkflowDataTransfer($data);
+		return with(new WorkflowDataTransfer($data))
+						->setMethod($this->ask('Trigger method name: ', 'run'))
+						->setDecorators($this->ask('Decorators: '));
 	}
 
 	/**
@@ -82,8 +82,8 @@ class WorkflowCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('folder', '-f', InputOption::VALUE_OPTIONAL, 'The folder to place files in.', 'workflows'),
-			array('namespace', '-ns', InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
+			array('folder', null, InputOption::VALUE_OPTIONAL, 'The folder to place files in.', 'workflows'),
+			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The workflow namespace.', null),
 		);
 	}
 

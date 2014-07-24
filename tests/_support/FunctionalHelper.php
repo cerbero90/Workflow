@@ -66,7 +66,9 @@ class FunctionalHelper extends \Codeception\Module
 
 		$I->seeInThisFile("// Bind the [{$workflow}] workflow");
 
-		$I->seeInThisFile("App::bind('\Workflows\\{$workflow}\\{$workflow}Interface', '\Workflows\\{$workflow}\\{$workflow}')");
+		$I->seeInThisFile("App::bind('Workflows\\{$workflow}\\{$workflow}Interface', function(\$app)");
+
+		$I->seeInThisFile("return new Workflows\\{$workflow}\\{$workflow};");
 	}
 
 }

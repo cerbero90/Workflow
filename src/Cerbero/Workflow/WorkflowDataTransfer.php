@@ -57,6 +57,22 @@ class WorkflowDataTransfer
 	}
 
 	/**
+	 * Set the decorators.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$decorators
+	 * @return	void
+	 */
+	public function setDecorators($decorators)
+	{
+		preg_match_all('/([a-z]+)/i', $decorators, $matches);
+
+		$this->data['decorators'] = array_map('ucfirst', $matches[0]);
+
+		return $this;
+	}
+
+	/**
 	 * Retrieve the workflow name.
 	 *
 	 * @author	Andrea Marco Sartori
@@ -92,9 +108,20 @@ class WorkflowDataTransfer
 	{
 		$chunks = [$this->data['namespace'], ucfirst($this->folder), $this->name];
 
-		$namespace = implode('\\', $chunks);
+		$namespace = ltrim(implode('\\', $chunks), '\\');
 
 		return str_replace('\\\\', '\\', $namespace);
+	}
+
+	/**
+	 * Retrieve the lower cased name.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	string
+	 */
+	protected function getLowername()
+	{
+		return lcfirst($this->name);
 	}
 
 }

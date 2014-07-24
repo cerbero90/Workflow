@@ -111,7 +111,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     {
     	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => 'baz']);
 
-    	$this->assertEquals('\Baz\Bar', $wf->namespace);
+    	$this->assertEquals('Baz\Bar', $wf->namespace);
     }
 
     /**
@@ -124,7 +124,7 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
     {
     	$wf = new Workflow(['namespace' => null, 'name' => 'bar', 'folder' => null]);
 
-    	$this->assertEquals('\Bar', $wf->namespace);
+    	$this->assertEquals('Bar', $wf->namespace);
     }
 
     /**
@@ -135,13 +135,75 @@ class WorkflowDataTransferTest extends \Codeception\TestCase\Test
      */
     public function testSetTheMethodToTriggerTheWorkflow()
     {
-    	$wf = new Workflow(['name' => 'foo']);
+    	$wf = new Workflow([]);
 
-    	$workflow = $wf->setMethod('bar');
+    	$workflow = $wf->setMethod('foo');
 
         $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
 
-    	$this->assertEquals('bar', $wf->method);
+    	$this->assertEquals('foo', $wf->method);
+    }
+
+    /**
+     * @testdox	Set the decorators.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testSetTheDecorators()
+    {
+    	$wf = new Workflow([]);
+
+    	$workflow = $wf->setDecorators('foo bar');
+
+        $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
+
+    	$this->assertSame(['Foo', 'Bar'], $wf->decorators);
+    }
+
+    /**
+     * @testdox	Set decorators to empty array if not set.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testSetDecoratorsToEmptyArrayIfNotSet()
+    {
+    	$wf = new Workflow([]);
+
+    	$workflow = $wf->setDecorators('');
+
+        $this->assertInstanceOf('Cerbero\Workflow\WorkflowDataTransfer', $workflow);
+
+    	$this->assertSame([], $wf->decorators);
+    }
+
+    /**
+     * @testdox	Retrieve set properties.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testRetrieveSetProperties()
+    {
+    	$wf = new Workflow([]);
+
+    	$wf->decorator = 'Foo';
+
+    	$this->assertEquals('Foo', $wf->decorator);
+    }
+
+    /**
+     * @testdox	Retrieve the lower cased name.
+     *
+     * @author	Andrea Marco Sartori
+     * @return	void
+     */
+    public function testRetrieveTheLowerCasedName()
+    {
+    	$wf = new Workflow(['name' => 'Foo']);
+
+    	$this->assertEquals('foo', $wf->lowername);
     }
 
 }

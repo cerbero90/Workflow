@@ -48,11 +48,23 @@ class ViewCompiler implements CompilerInterface
 	 */
 	public function compile($template, Workflow $workflow)
 	{
-		$path = $this->view->make("workflow::{$template}")->getPath();
-
-		$content = $this->file->get($path);
+		$content = $this->getContent($template);
 
 		return $this->templatePopulatedBy($workflow, $content);
+	}
+
+	/**
+	 * Retrieve the content of a template.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$template
+	 * @return	string
+	 */
+	protected function getContent($template)
+	{
+		$path = $this->view->make("workflow::{$template}")->getPath();
+
+		return $this->file->get($path);
 	}
 
 	/**
@@ -65,11 +77,48 @@ class ViewCompiler implements CompilerInterface
 	 */
 	protected function templatePopulatedBy(Workflow $workflow, $content)
 	{
+		$content = $this->nestTemplates($workflow, $content);
+
 		return preg_replace_callback('/\$([a-z]+)\$/', function($matches) use($workflow)
 		{
 			return $workflow->{$matches[1]};
 
 		}, $content);
+	}
+
+	/**
+	 * Put one template inside another.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	Cerbero\Workflow\WorkflowDataTransfer	$workflow
+	 * @param	string	$content
+	 * @return	string
+	 */
+	protected function nestTemplates(Workflow $workflow, $content)
+	{
+		for($i = 0; $i < count($decos = $workflow->decorators); $i++)
+		{
+			$bind = $this->compileBind($decos[$i], $i + 1);
+
+			$content = str_replace('#bind#', $bind, $content);
+		}
+		return str_replace('#bind#', '$namespace$\$name$', $content);
+	}
+
+	/**
+	 * Compile a bind template.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$decorator
+	 * @return	string
+	 */
+	protected function compileBind($decorator, $tabs)
+	{
+		$bind = $this->getContent('bind');
+
+		$tab = str_repeat("\t", $tabs);
+
+		return str_replace(['$decorator$', '$tab$'], [$decorator, $tab], $bind);
 	}
 
 }
