@@ -1,7 +1,7 @@
 ![](http://imageshack.com/a/img674/6060/59edf2.png "Workflow")
 # Workflow #
 
-This Laravel package adds an Artisan command to help you create extensible and maintainable projects by leveraging the [decorator pattern](http://en.wikipedia.org/wiki/Decorator_pattern).
+This Laravel package adds an Artisan command to help you create extensible and maintainable projects by leveraging the decorator pattern.
 
 ### Installation ###
 
