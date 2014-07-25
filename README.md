@@ -30,6 +30,7 @@ and the workflows directory to `composer.json` like so:
 	]
 }
 ```
+and finally run `composer dump-autoload -o`
 
 ### Usage ###
 
