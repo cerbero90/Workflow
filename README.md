@@ -45,6 +45,8 @@ You will be prompted to insert two *optional* information:
 
 If this is the first workflow you have created, be sure to follow the [last step of the installation](#important).
 
+> **Note**: when a decorator contains *validat* in its name, it is automatically generated as a form validator
+
 ### Customization ###
 
 To set your project namespace and a different folder to save the workflows, run:
