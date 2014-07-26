@@ -43,9 +43,9 @@ You will be prompted to insert two *optional* information:
  * the method name to run the workflow, if not provided `run()` will be used.
  * a list of decorators, you may separate them with any non-letter characters.
 
-If this is the first workflow you have created, be sure to follow the [last step of the installation](#important).
-
 > **Note**: when a decorator contains *validat* in its name, it is automatically generated as a form validator
+
+If this is the first workflow you have created, be sure to follow the [last step of the installation](#important).
 
 ### Customization ###
 
