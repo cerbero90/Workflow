@@ -159,8 +159,25 @@ class Generator implements GeneratorInterface
 		{
 			$this->workflow->decorator = $decorator;
 
-			$this->createFileFromTemplate('decorator', "{$folder}/{$decorator}.php");
+			$this->createDecoratorByName($decorator, $folder);
 		}
+	}
+
+	/**
+	 * Create a decorator depending on its name.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$name
+	 * @param	string	$folder
+	 * @return	void
+	 */
+	protected function createDecoratorByName($name, $folder)
+	{
+		$path = "{$folder}/{$name}.php";
+
+		$template = str_contains(strtolower($name), 'validat') ? 'validator' : 'decorator';
+
+		$this->createFileFromTemplate($template, $path);
 	}
 
 	/**
