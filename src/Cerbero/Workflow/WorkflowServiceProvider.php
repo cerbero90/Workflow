@@ -21,6 +21,22 @@ class WorkflowServiceProvider extends ServiceProvider {
 		$this->package('cerbero/workflow');
 
 		$this->commands('cerbero.workflow.command');
+
+		$this->validation();
+	}
+
+	/**
+	 * Handle validation errors.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	protected function validation()
+	{
+		$this->app->error
+		(
+			$this->app['config']['workflow::validation_failure']
+		);
 	}
 
 	/**
