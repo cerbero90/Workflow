@@ -41,7 +41,6 @@ class $decorator$ extends AbstractValidator implements $name$Interface
 	/**
 	 * Retrieve the rules to apply.
 	 *
-	 * @author	Andrea Marco Sartori
 	 * @return	array
 	 */
 	protected function getRules()
