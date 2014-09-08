@@ -1,0 +1,22 @@
+<?php namespace FooSpace;
+
+/**
+ * Main workflow class.
+ *
+ * @author		me
+ */
+class Whatever implements WhateverInterface
+{
+
+	/**
+	 * Trigger the workflow.
+	 *
+	 * @author		me
+	 * @param		$data
+	 */
+	public function trigger($data = null)
+	{
+		//
+	}
+
+}
