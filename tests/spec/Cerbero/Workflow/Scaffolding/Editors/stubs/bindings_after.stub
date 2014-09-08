@@ -1,0 +1,17 @@
+<?php
+
+// Bind the [Bar] workflow
+App::bind('Workflows\BarInterface', function($app)
+{
+	return new Workflows\Decorators\Dec
+	(
+		new Workflows\Decorators\Ora
+		(
+			new Workflows\Decorators\Tor
+			(
+				new Workflows\Bar\Bar()
+			)
+		)
+	);
+});
+
