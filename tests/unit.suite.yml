@@ -6,4 +6,4 @@ modules:
     enabled: [Asserts, UnitHelper, Laravel4]
     config:
         Laravel4:
-            start: '../../../bootstrap/start.php'
+            start: 'bootstrap/start.php'

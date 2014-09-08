@@ -12,6 +12,12 @@ class WorkflowServiceProvider extends ServiceProvider {
 	protected $defer = false;
 
 	/**
+	 * @author	Andrea Marco Sartori
+	 * @var		array	$commands	List of commands to register.
+	 */
+	protected $commands = array('create', 'drop');
+
+	/**
 	 * Bootstrap the application events.
 	 *
 	 * @return void
@@ -20,7 +26,7 @@ class WorkflowServiceProvider extends ServiceProvider {
 	{
 		$this->package('cerbero/workflow');
 
-		$this->commands('cerbero.workflow.command');
+		$this->commands($this->provides());
 
 		$this->validation();
 	}
@@ -40,56 +46,18 @@ class WorkflowServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register the service provider.
+	 * Register all commands.
 	 *
 	 * @return void
 	 */
 	public function register()
 	{
-		$this->registerGenerator();
-
-		$this->registerCompiler();
-
-		$this->registerCommand();
-	}
-
-	/**
-	 * Register the scaffolding generator.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	protected function registerGenerator()
-	{
-		$this->app->bind('Cerbero\Workflow\Scaffolding\GeneratorInterface', 'Cerbero\Workflow\Scaffolding\Generator');
-	}
-
-	/**
-	 * Register the templates compiler.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	protected function registerCompiler()
-	{
-		$this->app->bind('Cerbero\Workflow\Scaffolding\CompilerInterface', function($app)
+		foreach ($this->commands as $command)
 		{
-			return $app->make('Cerbero\Workflow\Scaffolding\ViewCompiler');
-		});
-	}
+			$name = ucfirst($command);
 
-	/**
-	 * Register the Artisan command.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	protected function registerCommand()
-	{
-		$this->app->bindShared('cerbero.workflow.command', function($app)
-		{
-			return $app->make('Cerbero\Workflow\WorkflowCommand');
-		});
+			$this->app->register("Cerbero\Workflow\Providers\\{$name}CommandServiceProvider");
+		}
 	}
 
 	/**
@@ -99,7 +67,11 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('cerbero.workflow.command');
+		return array_map(function($command)
+		{
+			return "cerbero.workflow.commands.{$command}";
+
+		}, $this->commands);
 	}
 
 }

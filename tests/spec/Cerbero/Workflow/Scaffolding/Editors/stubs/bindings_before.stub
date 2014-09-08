@@ -1,0 +1,32 @@
+<?php
+
+// Bind the [Foo] workflow
+App::bind('Workflows\FooInterface', function($app)
+{
+	return new Workflows\Decorators\One
+	(
+		new Workflows\Decorators\Two
+		(
+			new Workflows\Decorators\Three
+			(
+				new Workflows\Foo\Foo()
+			)
+		)
+	);
+});
+
+// Bind the [Bar] workflow
+App::bind('Workflows\BarInterface', function($app)
+{
+	return new Workflows\Decorators\Dec
+	(
+		new Workflows\Decorators\Ora
+		(
+			new Workflows\Decorators\Tor
+			(
+				new Workflows\Bar\Bar()
+			)
+		)
+	);
+});
+

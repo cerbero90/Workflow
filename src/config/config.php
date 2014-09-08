@@ -3,19 +3,29 @@
 return [
 
 	/*
-	 * The main folder to place the workflows
+	 * The directory to put files in.
 	 */
-	'folder' => 'workflows',
+	'path' => app_path('workflows'),
 
 	/*
-	 * Your Laravel project namespace
+	 * The namespace of the generated classes.
 	 */
-	'namespace' => '',
+	'namespace' => 'Workflows',
 
 	/*
-	 * Process to run after validation failure
+	 * The default method name to run the workflow.
 	 */
-	'validation_failure' => function(Cerbero\Workflow\Validation\Exception $exception)
+	'method' => 'run',
+
+	/*
+	 * Your name in PHP comments, set NULL to disable it.
+	 */
+	'author' => null,
+
+	/*
+	 * Process to run after validation failure.
+	 */
+	'validation_failure' => function(Cerbero\Workflow\Common\Validation\Exception $exception)
 	{
 		return Redirect::back()->withInput()->withErrors($exception->errors);
 	},

@@ -1,0 +1,8 @@
+<?php
+
+// Bind the [Registration] workflow
+App::bind('Workflows\RegistrationInterface', function($app)
+{
+	return new Workflows\Registration\Registration();
+});
+

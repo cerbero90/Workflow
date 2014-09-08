@@ -1,0 +1,65 @@
+<?php
+
+// Bind the [Foo] workflow
+App::bind('Workflows\FooInterface', function($app)
+{
+	return new Workflows\Decorators\Qqq
+	(
+		new Workflows\Decorators\Www
+		(
+			new Workflows\Decorators\Eee
+			(
+				new Workflows\Decorators\Rrr
+				(
+					new Workflows\Decorators\Ttt
+					(
+						new Workflows\Decorators\Yyy
+						(
+							new Workflows\Decorators\Uuu
+							(
+								new Workflows\Decorators\Iii
+								(
+									new Workflows\Decorators\Ooo
+									(
+										new Workflows\Decorators\Ppp
+										(
+											new Workflows\Decorators\Aaa
+											(
+												new Workflows\Decorators\Sss
+												(
+													new Workflows\Decorators\Ddd
+													(
+														new Workflows\Decorators\Fff
+														(
+															new Workflows\Decorators\Ggg
+															(
+																new Workflows\Decorators\Hhh
+																(
+																	new Workflows\Decorators\Jjj
+																	(
+																		new Workflows\Decorators\Kkk
+																		(
+																			new Workflows\Decorators\Lll
+																			(
+																				new Workflows\Foo\Foo()
+																			)
+																		)
+																	)
+																)
+															)
+														)
+													)
+												)
+											)
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	);
+});
+

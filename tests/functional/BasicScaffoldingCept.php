@@ -1,22 +1,14 @@
 <?php 
 $I = new FunctionalTester($scenario);
 $I->am('developer');
-$I->wantTo('see my workflow files generated');
+$I->wantTo('generate a workflow with no decorators or custom options');
 
-$I->deleteDir(app_path('workflows'));
-$I->runArtisan('workflow Registration');
-$I->amInWorkflows();
-
-$I->seeWorkflowBound('Registration');
-
-$I->openFile('Registration/RegistrationInterface.php');
-$I->seeInThisFile('interface RegistrationInterface');
-$I->seeInThisFile('run($data = null)');
-
-$I->openFile('Registration/Registration.php');
-$I->seeInThisFile('class Registration implements RegistrationInterface');
-$I->seeInThisFile('run($data = null)');
+$I->cleanTemporaryFiles();
+$I->runCommand('workflow:create registration');
 
 $I->seeInShellOutput('The workflow [Registration] has been created successfully.');
+$I->seeSameContentsIn('bindings.php', 'basic/bindings.stub');
+$I->seeSameContentsIn('Registration/RegistrationInterface.php', 'basic/interface.stub');
+$I->seeSameContentsIn('Registration/Registration.php', 'basic/main.stub');
 
-$I->deleteDir(app_path('workflows'));
+$I->cleanTemporaryFiles();

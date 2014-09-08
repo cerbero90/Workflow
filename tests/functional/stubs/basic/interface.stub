@@ -1,0 +1,17 @@
+<?php namespace Workflows;
+
+/**
+ * Workflow interface.
+ *
+ */
+interface RegistrationInterface
+{
+
+	/**
+	 * Trigger the registration workflow.
+	 *
+	 * @param		$data
+	 */
+	public function run($data = null);
+
+}

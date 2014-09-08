@@ -1,0 +1,17 @@
+<?php
+
+// Bind the [Login] workflow
+App::bind('Workflows\LoginInterface', function($app)
+{
+	return new Workflows\Decorators\Foo
+	(
+		new Workflows\Decorators\Bar
+		(
+			new Workflows\Decorators\Baz
+			(
+				new Workflows\Login\Login()
+			)
+		)
+	);
+});
+

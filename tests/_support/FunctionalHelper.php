@@ -8,6 +8,18 @@ class FunctionalHelper extends \Codeception\Module
 {
 
 	/**
+	 * Retrieve the temporary folder.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string|null	$path
+	 * @return	string
+	 */
+	private function getTemp($path = null)
+	{
+		return __DIR__ . "/../tmp/{$path}";
+	}
+
+	/**
 	 * Move to the project root.
 	 *
 	 * @author	Andrea Marco Sartori
@@ -33,42 +45,159 @@ class FunctionalHelper extends \Codeception\Module
 
 		$I = $this->getModule('Cli');
 
-		$I->runShellCommand("php artisan {$command} --no-interaction");
+		$I->runShellCommand("php artisan {$command}");
 	}
 
 	/**
-	 * Move to the workflows path.
+	 * Run a workflow command from artisan.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$command
+	 * @return	void
+	 */
+	public function runCommand($command)
+	{
+		$command .= sprintf(' --path="%s"', $this->getTemp());
+
+		$this->runArtisan($command);
+	}
+
+	/**
+	 * Clean the temporary folder.
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @return	void
 	 */
-	public function amInWorkflows()
+	public function cleanTemporaryFiles()
 	{
 		$I = $this->getModule('Filesystem');
 
-		$I->amInPath(app_path('workflows'));
+		$I->cleanDir($this->getTemp());
 	}
 
 	/**
-	 * Check if the workflow is bound.
+	 * Check two files have same content.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$workflow
+	 * @param	string	$file
+	 * @param	string	$stub
 	 * @return	void
 	 */
-	public function seeWorkflowBound($workflow)
+	public function seeSameContentsIn($file, $stub)
+	{
+		$stub = file_get_contents(__DIR__ . "/../functional/stubs/{$stub}");
+
+		$I = $this->getModule('Filesystem');
+
+		$I->openFile($this->getTemp($file));
+
+		$I->seeFileContentsEqual($stub);
+	}
+
+	/**
+	 * Check if the given decorators are generated in the given folder.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$folder
+	 * @return	void
+	 */
+	public function seeDecoratorsIn($folder, array $decorators)
+	{
+		$folder = $this->getTemp($folder);
+
+		$I = $this->getModule('Filesystem');
+
+		foreach ($decorators as $decorator)
+		{
+			$file = "{$folder}/{$decorator}.php";
+
+			$I->openFile($file);
+			$I->seeInThisFile('namespace Workflows\Decorators');
+			$I->seeInThisFile("class {$decorator} ");
+		}
+	}
+
+	/**
+	 * Check if a given file has the given namespace.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$file
+	 * @param	string	$namespace
+	 * @return	void
+	 */
+	public function seeNamespaceInFile($file, $namespace)
 	{
 		$I = $this->getModule('Filesystem');
 
-		$I->openFile('bindings.php');
+		$I->openFile($this->getTemp($file));
 
-		$I->seeInThisFile('<?php');
+		$I->seeInThisFile("namespace {$namespace};");
+	}
 
-		$I->seeInThisFile("// Bind the [{$workflow}] workflow");
+	/**
+	 * Check if a given file has the given method.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$file
+	 * @param	string	$method
+	 * @return	void
+	 */
+	public function seeMethodInFile($file, $method)
+	{
+		$I = $this->getModule('Filesystem');
 
-		$I->seeInThisFile("App::bind('Workflows\\{$workflow}\\{$workflow}Interface', function(\$app)");
+		$I->openFile($this->getTemp($file));
 
-		$I->seeInThisFile("return new Workflows\\{$workflow}\\{$workflow};");
+		$I->seeInThisFile("{$method}(\$data = null)");
+	}
+
+	/**
+	 * Check if a given file has the given author.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$file
+	 * @param	string	$author
+	 * @return	void
+	 */
+	public function seeAuthorInFile($file, $author)
+	{
+		$I = $this->getModule('Filesystem');
+
+		$I->openFile($this->getTemp($file));
+
+		$I->seeInThisFile("@author		$author");
+	}
+
+	/**
+	 * Check if a directory exists.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$directory
+	 * @return	void
+	 */
+	public function seeDirectory($directory)
+	{
+		$I = $this->getModule('Filesystem');
+
+		$path = $this->getTemp($directory);
+
+		$I->seeFileFound($path);
+	}
+
+	/**
+	 * Check if a directory does not exist.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$directory
+	 * @return	void
+	 */
+	public function dontSeeDirectory($directory)
+	{
+		$I = $this->getModule('Filesystem');
+
+		$path = $this->getTemp($directory);
+
+		$I->dontSeeFileFound($path);
 	}
 
 }

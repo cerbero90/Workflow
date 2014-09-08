@@ -5,5 +5,8 @@ $I->wantTo('check if workflow is listed by artisan');
 
 $I->runArtisan('list');
 
-$I->seeInShellOutput('workflow');
-$I->seeInShellOutput('Speed up the workflow to add new features.');
+$I->seeInShellOutput('workflow:create');
+$I->seeInShellOutput('Create a new workflow.');
+
+$I->seeInShellOutput('workflow:drop');
+$I->seeInShellOutput('Drop an existing workflow.');

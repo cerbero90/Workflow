@@ -1,0 +1,51 @@
+<?php namespace Workflows\Decorators;
+
+use Workflows\HelloInterface;
+use Cerbero\Workflow\Validation\AbstractValidator;
+
+/**
+ * Decorator of the hello workflow.
+ *
+ */
+class Validator extends AbstractValidator implements HelloInterface
+{
+
+	/**
+	 * @var 	 	HelloInterface	$hello	Hello implementation.
+	 */
+	protected $hello;
+	
+	/**
+	 * Set the dependencies.
+	 *
+	 * @param		HelloInterface	$hello
+	 * @return		void
+	 */
+	public function __construct(HelloInterface $hello)
+	{
+		$this->hello = $hello;
+	}
+
+	/**
+	 * Trigger the hello workflow.
+	 *
+	 * @param		$data
+	 */
+	public function run($data = null)
+	{
+		$this->validate($data);
+
+		$this->hello->run($data);
+	}
+
+	/**
+	 * Retrieve the rules to apply.
+	 *
+	 * @return		array
+	 */
+	protected function getRules()
+	{
+		return [];
+	}
+
+}

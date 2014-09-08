@@ -9,4 +9,4 @@ modules:
     enabled: [Filesystem, FunctionalHelper, Laravel4, Cli]
     config:
         Laravel4:
-            start: '../../../bootstrap/start.php'
+            start: 'bootstrap/start.php'

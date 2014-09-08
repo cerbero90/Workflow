@@ -11,10 +11,13 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/console": "4.2.*",
+        "illuminate/config": "4.2.*",
+        "illuminate/view": "4.2.*"
     },
     "require-dev": {
-        "codeception/codeception": ">=2.0.2"
+        "codeception/codeception": ">=2.0.2",
+        "phpspec/phpspec": "2.0.*"
     },
     "autoload": {
         "psr-0": {
@@ -22,10 +25,7 @@
         }
     },
     "scripts": {
-        "post-package-install": [
-            "php artisan config:publish cerbero/workflow"
-        ],
-        "post-package-update": [
+        "post-install-cmd": [
             "php artisan config:publish cerbero/workflow"
         ]
     },
