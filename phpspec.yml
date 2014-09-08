@@ -2,4 +2,3 @@ suites:
     workflow:
         namespace: Cerbero\Workflow
         spec_path: tests
-        src_path: ../../../
