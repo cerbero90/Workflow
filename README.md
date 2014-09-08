@@ -35,6 +35,7 @@ and finally run `composer dump-autoload -o`
 ### Usage ###
 
 Run this command to create a new workflow:
+
 ```
 php artisan workflow:create YourWorkflowName
 ```
