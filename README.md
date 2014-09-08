@@ -7,7 +7,7 @@ This Laravel package adds an Artisan command to help you create extensible and m
 
 Run this command in your application root:
 ```
-composer require --dev cerbero/workflow:1.*
+composer require --dev cerbero/workflow:2.*
 ```
 
 Add this item to the `providers` array in `app/config/app.php`:
@@ -36,7 +36,7 @@ and finally run `composer dump-autoload -o`
 
 Run this command to create a new workflow:
 ```
-php artisan workflow YourWorkflowName
+php artisan workflow:create YourWorkflowName
 ```
 
 You will be prompted to insert two *optional* information:
