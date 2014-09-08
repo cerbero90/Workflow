@@ -1,0 +1,20 @@
+<?php namespace Workflows;
+
+/**
+ * Main workflow class.
+ *
+ */
+class Login implements LoginInterface
+{
+
+	/**
+	 * Trigger the workflow.
+	 *
+	 * @param		$data
+	 */
+	public function run($data = null)
+	{
+		//
+	}
+
+}
