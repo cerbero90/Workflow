@@ -10,5 +10,4 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
 
 script:
-  - php vendor/bin/phpspec run
   - php vendor/bin/codecept run
