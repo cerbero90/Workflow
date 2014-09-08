@@ -22,10 +22,7 @@
         }
     },
     "scripts": {
-        "post-package-install": [
-            "php artisan config:publish cerbero/workflow"
-        ],
-        "post-package-update": [
+        "post-install-cmd": [
             "php artisan config:publish cerbero/workflow"
         ]
     },
