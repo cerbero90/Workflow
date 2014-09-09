@@ -63,6 +63,18 @@ class FunctionalHelper extends \Codeception\Module
 	}
 
 	/**
+	 * Run a command avoiding interactive questions.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$command
+	 * @return	void
+	 */
+	public function runNonInteractiveCommand($command)
+	{
+		$this->runCommand("-n $command");
+	}
+
+	/**
 	 * Clean the temporary folder.
 	 *
 	 * @author	Andrea Marco Sartori
