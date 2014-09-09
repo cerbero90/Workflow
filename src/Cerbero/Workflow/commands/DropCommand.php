@@ -75,8 +75,7 @@ class DropCommand extends Command {
 	{
 		extract($this->getInput());
 
-		// Temporarily commented out because I don't know how to test it.. (・_・;)
-		// if( ! $this->userConfirmsOperation($name)) return;
+		if( ! $this->userConfirmsOperation($name)) return;
 
 		$success = $this->file->deleteDirectory("{$path}/{$name}");
 
