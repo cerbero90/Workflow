@@ -11,11 +11,9 @@ before_script:
   - cd ./laravel
   - composer config repositories.cerbero vcs https://github.com/cerbero90/Workflow
   - composer require --dev cerbero/workflow dev-master
-  - composer require --dev codeception/codeception:2.0.*
-  - composer require --dev phpspec/phpspec:2.0.*
+  - composer require --dev --prefer-source phpspec/phpspec:2.0.*
   - export APP_ENV="testing"
   - cd ./vendor/cerbero/workflow
 
 script:
   - php ../../bin/phpspec run
-  - php ../../bin/codecept run
