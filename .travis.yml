@@ -7,7 +7,15 @@ php:
 
 before_script:
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer create-project laravel/laravel --prefer-source --no-interaction --dev
+  - cd ./laravel
+  - composer config repositories.cerbero vcs https://github.com/cerbero90/Workflow
+  - composer require --dev cerbero/workflow dev-master
+  - composer require --dev codeception/codeception:2.0.*
+  - composer require --dev phpspec/phpspec:2.0.*
+  - export APP_ENV="testing"
+  - cd ./vendor/cerbero/workflow
 
 script:
-  - php vendor/bin/codecept run
+  - php ../../bin/phpspec run
+  - php ../../bin/codecept run
