@@ -43,13 +43,19 @@ Option       | Description
 
 The previous command generates the following files in `app/workflows`:
 
-File                                   | Description
--------------------------------------- | -----------
-bindings.php                           | bind workflows to the IoC container
-Registration/RegistrationInterface.php | interface shared by the main class and decorators
-Registration/Registration.php          | the main class (i.e.: the one which stores user data)
-Registration/Decorators/Notifier.php   | the decorator to send the welcome email
-Registration/Decorators/Validator.php  | the decorator to validate user input
+File (click to see an example)                      | Description
+--------------------------------------------------- | -----------
+[bindings.php][bindings]                            | bind workflows to the IoC container
+[Registration/RegistrationInterface.php][interface] | interface shared by the main class and decorators
+[Registration/Registration.php][main]               | the main class (i.e.: the one which stores user data)
+[Registration/Decorators/Notifier.php][decorator]   | the decorator to send the welcome email
+[Registration/Decorators/Validator.php][validator]  | the decorator to validate user input
+
+[bindings]: https://github.com/cerbero90/workflow-demo/blob/master/app/workflows/bindings.php
+[interface]: https://github.com/cerbero90/workflow-demo/blob/master/app/workflows/Registration/RegistrationInterface.php
+[main]: https://github.com/cerbero90/workflow-demo/blob/master/app/workflows/Registration/Registration.php
+[decorator]: https://github.com/cerbero90/workflow-demo/blob/master/app/workflows/Registration/decorators/Notifier.php
+[validator]: https://github.com/cerbero90/workflow-demo/blob/master/app/workflows/Registration/decorators/Validator.php
 
 ### Autoload workflows ###
 
