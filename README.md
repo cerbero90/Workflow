@@ -1,9 +1,15 @@
 ![](http://imageshack.com/a/img674/6060/59edf2.png "Workflow")
 # Workflow #
 
-This Laravel package adds an Artisan command to help you create extensible and maintainable projects by leveraging the decorator pattern. Wanna see Workflow in action? Check out this [sample application](https://github.com/cerbero90/workflow-demo).
+This Laravel package adds an Artisan command to help you create extensible and maintainable projects by leveraging the decorators design pattern. You can see an [example here](https://github.com/cerbero90/workflow-demo).
 
-### Installation ###
+Let's assume we want to develop a registration process: the main thing is to store the user data, but we also want to validate input and send a welcome email.
+
+Since the main thing is data storing, everything else becomes a *decorator* of the registration workflow.
+
+The idea behind this package is to automate the generation of classes and interfaces necessary for the decorators pattern as well as bind the generated files to the IoC container.
+
+## Installation ##
 
 Run this command in your application root:
 ```
@@ -15,51 +21,80 @@ Add this item to the `providers` array in `app/config/app.php`:
 'Cerbero\Workflow\WorkflowServiceProvider',
 ```
 
-#### Important ####
+## Create a new workflow ##
 
-**Only after creating the first workflow** (see below) add this line to the end of `app/start/global.php`:
+Taking the previous example, we will be creating the registration workflow to illustrate the package functionality.
+
+Run this command to create the new workflow:
+
+```
+php artisan workflow:create registration --decorators="validator notifier" --method="register"
+```
+
+Only the workflow name is mandatory, let's examine all the available options:
+
+Option       | Description
+------------ | -----------
+--decorators | the list of the workflow decorators
+--method     | the name of the method that triggers the workflow (default is `run`)
+--path       | the directory to put files in (default is `app/workflows`)
+--namespace  | the namespace of the generated files (default is `Workflows`)
+--author     | your name in the generated files comments
+
+The previous command generates the following files in `app/workflows`:
+
+File                                   | Description
+-------------------------------------- | -----------
+bindings.php                           | bind workflows to the IoC container
+Registration/RegistrationInterface.php | interface shared by the main class and decorators
+Registration/Registration.php          | the main class (i.e.: the one which stores user data)
+Registration/Decorators/Notifier.php   | the decorator to send the welcome email
+Registration/Decorators/Validator.php  | the decorator to validate user input
+
+### Autoload workflows ###
+
+In order to let Laravel know how to load our workflows, we have to follow these steps once:
+
+* add this line to the end of `app/start/global.php`:
 ```
 require app_path('workflows/bindings.php');
 ```
 
-and the workflows directory to `composer.json` like so:
+* make sure the workflows directory is loaded, you may add it to `composer.json` like so:
 ```
 "autoload": {
-	"classmap": [
-		"app/workflows"
-	]
+    "classmap": [
+        "app/workflows"
+    ]
 }
 ```
-and finally run `composer dump-autoload -o`
+* run `composer dump-autoload -o`
 
-### Usage ###
+### Validators ###
 
-Run this command to create a new workflow:
+When a decorator contains the part *validat* in its name, a form validator is automatically generated.
 
-```
-php artisan workflow:create YourWorkflowName
-```
+That means you only have to specify the rules within the `getRules()` method of the validator and the whole validation process just works.
 
-You will be prompted to insert two *optional* information:
- * the method name to run the workflow, if not provided `run()` will be used.
- * a list of decorators, you may separate them with any non-letter characters.
+By default when validation fails, the user is redirected back with input and errors: you may change this behavior by editing the package configuration.
 
-> **Note**: when a decorator contains *validat* in its name, it is automatically generated as a form validator
+### Configuration ###
 
-If this is the first workflow you have created, be sure to follow the [last step of the installation](#important).
-
-### Customization ###
-
-To set your project namespace and a different folder to save the workflows, run:
+To modify the package configuration, simply run:
 ```
 php artisan config:publish cerbero/workflow
 ```
-and edit `app/config/packages/cerbero/workflow/config.php`
 
----
+In `app/config/packages/cerbero/workflow/config.php` you may set default options to avoid inserting them everytime you create a new workflow.
 
-To change the templates of the generated files, run:
+Also, you may customize the process to run when validations fail.
+
+## Drop an existing workflow ##
+
+To irreversibly remove and unbind an existing workflow, i.e.: the previous registration workflow, run:
+
 ```
-php artisan view:publish cerbero/workflow
+php artisan workflow:drop registration
 ```
-and edit the files in `app/views/packages/cerbero/workflow/`
+
+A confirmation dialog will appear, just press ENTER to confirm or type `no` to deny.
