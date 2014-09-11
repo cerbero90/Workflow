@@ -1,5 +1,10 @@
 ![](http://imageshack.com/a/img674/6060/59edf2.png "Workflow")
+
 # Workflow #
+
+[![Build Status](http://img.shields.io/travis/cerbero90/Workflow.svg?style=flat-square)](https://travis-ci.org/cerbero90/Workflow)
+[![Latest Stable Version](http://img.shields.io/packagist/v/cerbero/Workflow.svg?style=flat-square)](https://packagist.org/packages/cerbero/workflow)
+[![License](http://img.shields.io/packagist/l/cerbero/Workflow.svg?style=flat-square)](https://packagist.org/packages/cerbero/workflow)
 
 This Laravel package adds an Artisan command to help you create extensible and maintainable projects by leveraging the decorators design pattern. You can see an [example here](https://github.com/cerbero90/workflow-demo).
 
