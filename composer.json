@@ -1,6 +1,6 @@
 {
     "name": "cerbero/workflow",
-    "description": "Speed up the workflow to add new features to your Laravel projects.",
+    "description": "Laravel console command to help you create extensible and maintainable projects by leveraging the decorators design pattern.",
     "keywords": ["laravel", "artisan", "workflow", "decorators"],
     "license": "MIT",
     "authors": [
