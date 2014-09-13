@@ -1,12 +1,12 @@
 <?php
 
-App::bind('Workflows\FooInterface', function($app)
+App::bind('Workflows\Foo\FooInterface', function($app)
 {
-	return new Workflows\Decorators\One
+	return new Workflows\Foo\Decorators\One
 	(
-		new Workflows\Decorators\Two
+		new Workflows\Foo\Decorators\Two
 		(
-			new Workflows\Decorators\Three
+			new Workflows\Foo\Decorators\Three
 			(
 				new Workflows\Foo\Foo()
 			)
@@ -14,13 +14,13 @@ App::bind('Workflows\FooInterface', function($app)
 	);
 });
 
-App::bind('Workflows\BarInterface', function($app)
+App::bind('Workflows\Bar\BarInterface', function($app)
 {
-	return new Workflows\Decorators\Dec
+	return new Workflows\Bar\Decorators\Dec
 	(
-		new Workflows\Decorators\Ora
+		new Workflows\Bar\Decorators\Ora
 		(
-			new Workflows\Decorators\Tor
+			new Workflows\Bar\Decorators\Tor
 			(
 				new Workflows\Bar\Bar()
 			)

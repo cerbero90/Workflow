@@ -32,7 +32,7 @@ class BindingsGeneratorSpec extends AbstractGeneratorBehavior
         $this->assertTemplateContentIsAppendedToFile('bindings.php', 'NS\NameInterface', 'bindings');
 
         // exit from loop: the bindings file contains everything we need
-        $this->assertFileContains('<?php NS\NameInterface', 'bindings.php');
+        $this->assertFileContains('<?php NS\Name\NameInterface', 'bindings.php');
 
         $this->generate($this->data)->shouldReturn(true);
     }
@@ -47,7 +47,7 @@ class BindingsGeneratorSpec extends AbstractGeneratorBehavior
     {
         $this->assertFileExists('bindings.php');
 
-        $this->assertFileContains('NS\NameInterface', 'bindings.php');
+        $this->assertFileContains('NS\Name\NameInterface', 'bindings.php');
 
         $this->generate($this->data)->shouldReturn(true);
     }
