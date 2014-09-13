@@ -31,7 +31,7 @@ class BindingsEditor extends AbstractBindingsEditor
 	 */
 	protected function getPattern($name, $namespace)
 	{
-		return "/((?:\/\/ Bind the \[{$name}[\s\S]+)?.+{$namespace}\\\\{$name}Interface[\s\S]+?\n\n)/";
+		return "/((?:\/\/ Bind the \[{$name}[\s\S]+)?.+{$namespace}\\\\{$name}\\\\{$name}Interface[\s\S]+?\n\n)/";
 	}
 
 }

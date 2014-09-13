@@ -1,7 +1,7 @@
-<?php namespace Workflows\Decorators;
+<?php namespace Workflows\Hello\Decorators;
 
-use Workflows\HelloInterface;
-use Cerbero\Workflow\Validation\AbstractValidator;
+use Workflows\Hello\HelloInterface;
+use Cerbero\Workflow\Common\Validation\AbstractValidator;
 
 /**
  * Decorator of the hello workflow.

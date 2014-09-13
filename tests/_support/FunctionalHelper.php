@@ -124,7 +124,7 @@ class FunctionalHelper extends \Codeception\Module
 			$file = "{$folder}/{$decorator}.php";
 
 			$I->openFile($file);
-			$I->seeInThisFile('namespace Workflows\Decorators');
+			$I->seeInThisFile('namespace Workflows\Foo\Decorators');
 			$I->seeInThisFile("class {$decorator} ");
 		}
 	}

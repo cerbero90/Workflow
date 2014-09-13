@@ -1,7 +1,7 @@
-<{{'?'}}php namespace {{$namespace}}\Decorators;
+<{{'?'}}php namespace {{$namespace}}\{{$name}}\Decorators;
 
-use {{$namespace}}\{{$name}}Interface;
-use Cerbero\Workflow\Validation\AbstractValidator;
+use {{$namespace}}\{{$name}}\{{$name}}Interface;
+use Cerbero\Workflow\Common\Validation\AbstractValidator;
 
 /**
  * Decorator of the {{$lowername}} workflow.

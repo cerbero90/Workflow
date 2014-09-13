@@ -1,4 +1,4 @@
-<{{'?'}}php namespace {{$namespace}};
+<{{'?'}}php namespace {{$namespace}}\{{$name}};
 
 /**
  * Main workflow class.

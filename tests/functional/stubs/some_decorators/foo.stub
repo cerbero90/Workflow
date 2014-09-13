@@ -1,6 +1,6 @@
-<?php namespace Workflows\Decorators;
+<?php namespace Workflows\Login\Decorators;
 
-use Workflows\LoginInterface;
+use Workflows\Login\LoginInterface;
 
 /**
  * Decorator of the login workflow.
