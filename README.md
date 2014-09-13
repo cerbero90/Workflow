@@ -33,7 +33,7 @@ Taking the previous example, we will be creating the registration workflow to il
 Run this command to create the new workflow:
 
 ```
-php artisan workflow:create registration --decorators="validator notifier" --method="register"
+php artisan workflow:create registration --decorators="validator notifier"
 ```
 
 Only the workflow name is mandatory, let's examine all the available options:
