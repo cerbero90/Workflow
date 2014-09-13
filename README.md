@@ -38,13 +38,13 @@ php artisan workflow:create registration --decorators="validator notifier" --met
 
 Only the workflow name is mandatory, let's examine all the available options:
 
-Option       | Description
------------- | -----------
---decorators | the list of the workflow decorators
---method     | the name of the method that triggers the workflow (default is `run`)
---path       | the directory to put files in (default is `app/workflows`)
---namespace  | the namespace of the generated files (default is `Workflows`)
---author     | your name in the generated files comments
+Option       | Shortcut       | Description
+------------ | ------------ | -----------
+--decorators | -d           | the list of the workflow decorators
+--method     | -m           | the name of the method that triggers the workflow (default is `run`)
+--path       | -p           | the directory to put files in (default is `app/workflows`)
+--namespace  | -s           | the namespace of the generated files (default is `Workflows`)
+--author     | -a           | your name in the generated files comments
 
 The previous command generates the following files in `app/workflows`:
 
