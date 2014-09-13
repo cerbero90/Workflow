@@ -95,10 +95,10 @@ class CreateCommand extends Command {
 	{
 		return array(
 			array('decorators', '-d', InputOption::VALUE_OPTIONAL, 'The list of decorators.', null),
-			array('method', null, InputOption::VALUE_OPTIONAL, 'The method name to run the workflow.', $this->config->get('workflow::method')),
-			array('path', null, InputOption::VALUE_OPTIONAL, 'The directory to put files in.', $this->config->get('workflow::path')),
-			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The namespace of the generated classes.', $this->config->get('workflow::namespace')),
-			array('author', null, InputOption::VALUE_OPTIONAL, 'Your name in PHP comments.', $this->config->get('workflow::author')),
+			array('method', '-m', InputOption::VALUE_OPTIONAL, 'The method name to run the workflow.', $this->config->get('workflow::method')),
+			array('path', '-p', InputOption::VALUE_OPTIONAL, 'The directory to put files in.', $this->config->get('workflow::path')),
+			array('namespace', '-s', InputOption::VALUE_OPTIONAL, 'The namespace of the generated classes.', $this->config->get('workflow::namespace')),
+			array('author', '-a', InputOption::VALUE_OPTIONAL, 'Your name in PHP comments.', $this->config->get('workflow::author')),
 		);
 	}
 

@@ -1,0 +1,42 @@
+<?php namespace FooSpace\Whatever\Decorators;
+
+use FooSpace\Whatever\WhateverInterface;
+
+/**
+ * Decorator of the whatever workflow.
+ *
+ * @author		me
+ */
+class Foo implements WhateverInterface
+{
+
+	/**
+	 * @author		me
+	 * @var 	 	WhateverInterface	$whatever	Whatever implementation.
+	 */
+	protected $whatever;
+	
+	/**
+	 * Set the dependencies.
+	 *
+	 * @author		me
+	 * @param		WhateverInterface	$whatever
+	 * @return		void
+	 */
+	public function __construct(WhateverInterface $whatever)
+	{
+		$this->whatever = $whatever;
+	}
+
+	/**
+	 * Trigger the whatever workflow.
+	 *
+	 * @author		me
+	 * @param		$data
+	 */
+	public function trigger($data = null)
+	{
+		$this->whatever->trigger($data);
+	}
+
+}

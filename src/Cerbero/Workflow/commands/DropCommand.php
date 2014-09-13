@@ -132,8 +132,8 @@ class DropCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The namespace of the generated classes.', $this->config->get('workflow::namespace')),
-			array('path', null, InputOption::VALUE_OPTIONAL, 'The directory where the workflows are located.', $this->config->get('workflow::path')),
+			array('namespace', '-s', InputOption::VALUE_OPTIONAL, 'The namespace of the generated classes.', $this->config->get('workflow::namespace')),
+			array('path', '-p', InputOption::VALUE_OPTIONAL, 'The directory where the workflows are located.', $this->config->get('workflow::path')),
 		);
 	}
 

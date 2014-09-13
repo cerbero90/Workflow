@@ -1,0 +1,19 @@
+<?php namespace FooSpace\Whatever;
+
+/**
+ * Workflow interface.
+ *
+ * @author		me
+ */
+interface WhateverInterface
+{
+
+	/**
+	 * Trigger the whatever workflow.
+	 *
+	 * @author		me
+	 * @param		$data
+	 */
+	public function trigger($data = null);
+
+}
