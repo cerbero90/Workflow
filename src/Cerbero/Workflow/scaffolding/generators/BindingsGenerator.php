@@ -64,7 +64,7 @@ class BindingsGenerator extends AbstractGenerator
 
 		extract($this->data);
 
-		$interface = "{$namespace}\\{$name}Interface";
+		$interface = "{$namespace}\\{$name}\\{$name}Interface";
 
 		return str_contains($content, $interface);
 	}

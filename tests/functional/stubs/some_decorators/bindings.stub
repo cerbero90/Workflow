@@ -1,13 +1,13 @@
 <?php
 
 // Bind the [Login] workflow
-App::bind('Workflows\LoginInterface', function($app)
+App::bind('Workflows\Login\LoginInterface', function($app)
 {
-	return new Workflows\Decorators\Foo
+	return new Workflows\Login\Decorators\Foo
 	(
-		new Workflows\Decorators\Bar
+		new Workflows\Login\Decorators\Bar
 		(
-			new Workflows\Decorators\Baz
+			new Workflows\Login\Decorators\Baz
 			(
 				new Workflows\Login\Login()
 			)

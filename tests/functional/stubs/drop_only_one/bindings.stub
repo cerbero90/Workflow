@@ -1,9 +1,9 @@
 <?php
 
 // Bind the [Second] workflow
-App::bind('Workflows\SecondInterface', function($app)
+App::bind('Workflows\Second\SecondInterface', function($app)
 {
-	return new Workflows\Decorators\Baz
+	return new Workflows\Second\Decorators\Baz
 	(
 		new Workflows\Second\Second()
 	);

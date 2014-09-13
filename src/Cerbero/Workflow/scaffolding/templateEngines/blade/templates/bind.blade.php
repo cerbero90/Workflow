@@ -1,5 +1,5 @@
 @if($decorators)
-{{$namespace}}\Decorators\{{$decorators[$i++]}}
+{{$namespace}}\{{$name}}\Decorators\{{$decorators[$i++]}}
 <?php $tab = str_repeat("\t", $i) ?>
 {{$tab}}(
 	{{$tab}}new @if(count($decorators) === $i)

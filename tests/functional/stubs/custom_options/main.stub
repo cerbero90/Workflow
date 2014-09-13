@@ -1,4 +1,4 @@
-<?php namespace FooSpace;
+<?php namespace FooSpace\Whatever;
 
 /**
  * Main workflow class.

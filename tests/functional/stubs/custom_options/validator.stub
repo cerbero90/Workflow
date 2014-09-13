@@ -1,7 +1,7 @@
-<?php namespace FooSpace\Decorators;
+<?php namespace FooSpace\Whatever\Decorators;
 
-use FooSpace\WhateverInterface;
-use Cerbero\Workflow\Validation\AbstractValidator;
+use FooSpace\Whatever\WhateverInterface;
+use Cerbero\Workflow\Common\Validation\AbstractValidator;
 
 /**
  * Decorator of the whatever workflow.

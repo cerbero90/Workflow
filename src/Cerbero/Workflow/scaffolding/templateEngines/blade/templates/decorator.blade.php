@@ -1,6 +1,6 @@
-<{{'?'}}php namespace {{$namespace}}\Decorators;
+<{{'?'}}php namespace {{$namespace}}\{{$name}}\Decorators;
 
-use {{$namespace}}\{{$name}}Interface;
+use {{$namespace}}\{{$name}}\{{$name}}Interface;
 
 /**
  * Decorator of the {{$lowername}} workflow.

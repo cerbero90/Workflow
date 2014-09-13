@@ -1,6 +1,6 @@
-<?php namespace FooSpace\Decorators;
+<?php namespace FooSpace\Whatever\Decorators;
 
-use FooSpace\WhateverInterface;
+use FooSpace\Whatever\WhateverInterface;
 
 /**
  * Decorator of the whatever workflow.
