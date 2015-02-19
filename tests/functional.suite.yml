@@ -6,7 +6,8 @@
 
 class_name: FunctionalTester
 modules:
-    enabled: [Filesystem, FunctionalHelper, Laravel4, Cli]
+    enabled: [Filesystem, FunctionalHelper, Cli, Laravel5]
     config:
-        Laravel4:
-            start: 'bootstrap/start.php'
+        Laravel5:
+            root: ../../../
+            environment_file: .env.testing

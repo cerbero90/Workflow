@@ -1,0 +1,3 @@
+RegisterUser:
+    - App\Workflows\RegisterUser\Logger
+    - App\Workflows\RegisterUser\Buzzer
