@@ -4,36 +4,24 @@ namespace Codeception\Module;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-class FunctionalHelper extends \Codeception\Module
-{
+class FunctionalHelper extends \Codeception\Module {
 
 	/**
-	 * Retrieve the temporary folder.
+	 * Dynamically get modules.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string|null	$path
-	 * @return	string
+	 * @param	string	$name
+	 * @return	mixed
 	 */
-	private function getTemp($path = null)
+	public function __get($name)
 	{
-		return __DIR__ . "/../tmp/{$path}";
+		$module = ucfirst($name);
+
+		return $this->getModule($module);
 	}
 
 	/**
-	 * Move to the project root.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	public function amInRoot()
-	{
-		$I = $this->getModule('Filesystem');
-
-		$I->amInPath(base_path());
-	}
-
-	/**
-	 * Run an artisan command.
+	 * Run an Artisan command.
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @param	string	$command
@@ -41,175 +29,253 @@ class FunctionalHelper extends \Codeception\Module
 	 */
 	public function runArtisan($command)
 	{
-		$this->amInRoot();
+		$this->filesystem->amInPath(base_path());
 
-		$I = $this->getModule('Cli');
-
-		$I->runShellCommand("php artisan {$command}");
+		$this->cli->runShellCommand("php artisan {$command}");
 	}
 
 	/**
-	 * Run a workflow command from artisan.
+	 * Check if the content of a generated command is equal to the given stub.
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @param	string	$command
+	 * @param	string	$stub
 	 * @return	void
 	 */
-	public function runCommand($command)
+	public function seeInCommand($command, $stub)
 	{
-		$command .= sprintf(' --path="%s"', $this->getTemp());
+		$file = "Commands/{$command}.php";
 
-		$this->runArtisan($command);
+		$this->seeStubInFile($file, $stub);
 	}
 
 	/**
-	 * Run a command avoiding interactive questions.
+	 * Check if the content of a generated request is equal to the given stub.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$command
+	 * @param	string	$request
+	 * @param	string	$stub
 	 * @return	void
 	 */
-	public function runNonInteractiveCommand($command)
+	public function seeInRequest($request, $stub)
 	{
-		$this->runCommand("-n $command");
+		$file = "Http/Requests/{$request}.php";
+
+		$this->seeStubInFile($file, $stub);
 	}
 
 	/**
-	 * Clean the temporary folder.
+	 * Check if the content of a generated pipe is equal to the given stub.
 	 *
 	 * @author	Andrea Marco Sartori
+	 * @param	string	$pipe
+	 * @param	string	$stub
+	 * @param	string	$path
 	 * @return	void
 	 */
-	public function cleanTemporaryFiles()
+	public function seeInPipe($pipe, $stub, $path = 'Workflows')
 	{
-		$I = $this->getModule('Filesystem');
+		$file = "{$path}/{$pipe}.php";
 
-		$I->cleanDir($this->getTemp());
+		$this->seeStubInFile($file, $stub);
 	}
 
 	/**
-	 * Check two files have same content.
+	 * Check if the content of the generated workflows list is equal to the given stub.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$stub
+	 * @param	string	$path
+	 * @return	void
+	 */
+	public function seeInWorkflows($stub, $path = 'Workflows')
+	{
+		$file = "{$path}/workflows.yml";
+
+		$this->seeStubInFile($file, $stub);
+	}
+
+	/**
+	 * Check if the content of a file is equal to the given stub.
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @param	string	$file
 	 * @param	string	$stub
 	 * @return	void
 	 */
-	public function seeSameContentsIn($file, $stub)
+	public function seeStubInFile($file, $stub)
 	{
-		$stub = file_get_contents(__DIR__ . "/../functional/stubs/{$stub}");
+		$I = $this->filesystem;
 
-		$I = $this->getModule('Filesystem');
+		$I->openFile(app_path($file));
 
-		$I->openFile($this->getTemp($file));
+		$content = $this->getContentOfStub($stub);
 
-		$I->seeFileContentsEqual($stub);
+		$I->seeFileContentsEqual($content);
 	}
 
 	/**
-	 * Check if the given decorators are generated in the given folder.
+	 * Retrieve the content of a stub.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$folder
+	 * @param	string	$stub
+	 * @return	string
+	 */
+	protected function getContentOfStub($stub)
+	{
+		$path = __DIR__ . "/stubs/{$stub}";
+
+		return file_get_contents($path);
+	}
+
+	/**
+	 * Remove all the generated files for a given workflow.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$workflow
+	 * @param	string	$path
 	 * @return	void
 	 */
-	public function seeDecoratorsIn($folder, array $decorators)
+	public function clearWorkflow($workflow, $path = "Workflows")
 	{
-		$folder = $this->getTemp($folder);
+		$this->deleteDirIfExists($path);
 
-		$I = $this->getModule('Filesystem');
+		$this->deleteFileIfExists("Commands/{$workflow}Command.php");
 
-		foreach ($decorators as $decorator)
+		$this->deleteFileIfExists("Http/Requests/{$workflow}Request.php");
+	}
+
+	/**
+	 * Delete a directory if exists.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$path
+	 * @return	void
+	 */
+	protected function deleteDirIfExists($path)
+	{
+		if(file_exists($dir = app_path($path)))
 		{
-			$file = "{$folder}/{$decorator}.php";
-
-			$I->openFile($file);
-			$I->seeInThisFile('namespace Workflows\Foo\Decorators');
-			$I->seeInThisFile("class {$decorator} ");
+			$this->filesystem->deleteDir($dir);
 		}
 	}
 
 	/**
-	 * Check if a given file has the given namespace.
+	 * Delete a file if exists.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$file
-	 * @param	string	$namespace
+	 * @param	string	$path
 	 * @return	void
 	 */
-	public function seeNamespaceInFile($file, $namespace)
+	protected function deleteFileIfExists($path)
 	{
-		$I = $this->getModule('Filesystem');
-
-		$I->openFile($this->getTemp($file));
-
-		$I->seeInThisFile("namespace {$namespace};");
+		if(file_exists($file = app_path($path)))
+		{
+			$this->filesystem->deleteFile($file);
+		}
 	}
 
 	/**
-	 * Check if a given file has the given method.
+	 * Assert a given request does not exist.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$file
-	 * @param	string	$method
+	 * @param	string	$request
 	 * @return	void
 	 */
-	public function seeMethodInFile($file, $method)
+	public function dontSeeRequest($request)
 	{
-		$I = $this->getModule('Filesystem');
+		$file = app_path("Http/Requests/{$request}.php");
 
-		$I->openFile($this->getTemp($file));
-
-		$I->seeInThisFile("{$method}(\$data = null)");
+		$this->filesystem->dontSeeFileFound($file);
 	}
 
 	/**
-	 * Check if a given file has the given author.
+	 * Assert a given pipe does exist.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$file
-	 * @param	string	$author
+	 * @param	string	$pipe
+	 * @param	string	$path
 	 * @return	void
 	 */
-	public function seeAuthorInFile($file, $author)
+	public function seePipe($pipe, $path = 'Workflows')
 	{
-		$I = $this->getModule('Filesystem');
+		$file = app_path("{$path}/{$pipe}.php");
 
-		$I->openFile($this->getTemp($file));
-
-		$I->seeInThisFile("@author		$author");
+		$this->filesystem->seeFileFound($file);
 	}
 
 	/**
-	 * Check if a directory exists.
+	 * Assert a given pipe does not exist.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$directory
+	 * @param	string	$pipe
+	 * @param	string	$path
 	 * @return	void
 	 */
-	public function seeDirectory($directory)
+	public function dontSeePipe($pipe, $path = 'Workflows')
 	{
-		$I = $this->getModule('Filesystem');
+		$file = app_path("{$path}/{$pipe}.php");
 
-		$path = $this->getTemp($directory);
-
-		$I->seeFileFound($path);
+		$this->filesystem->dontSeeFileFound($file);
 	}
 
 	/**
-	 * Check if a directory does not exist.
+	 * Assert a given command does exist.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$directory
+	 * @param	string	$command
+	 * @param	string	$path
 	 * @return	void
 	 */
-	public function dontSeeDirectory($directory)
+	public function seeCommand($command, $path = 'Commands')
 	{
-		$I = $this->getModule('Filesystem');
+		$file = app_path("{$path}/{$command}.php");
 
-		$path = $this->getTemp($directory);
+		$this->filesystem->seeFileFound($file);
+	}
 
-		$I->dontSeeFileFound($path);
+	/**
+	 * Assert a given command does not exist.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$command
+	 * @param	string	$path
+	 * @return	void
+	 */
+	public function dontSeeCommand($command, $path = 'Commands')
+	{
+		$file = app_path("{$path}/{$command}.php");
+
+		$this->filesystem->dontSeeFileFound($file);
+	}
+
+	/**
+	 * Assert a given request does exist.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$request
+	 * @param	string	$path
+	 * @return	void
+	 */
+	public function seeRequest($request, $path = 'Http/Requests')
+	{
+		$file = app_path("{$path}/{$request}.php");
+
+		$this->filesystem->seeFileFound($file);
+	}
+
+	/**
+	 * Check if a drawing is identical to a given stub.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @param	string	$stub
+	 * @return	void
+	 */
+	public function seeDrawingIs($stub)
+	{
+		$content = $this->getContentOfStub("Drawings/$stub");
+
+		$this->cli->seeInShellOutput($content);
 	}
 
 }

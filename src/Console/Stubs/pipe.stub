@@ -1,0 +1,30 @@
+<?php namespace {{namespace}};
+
+use Cerbero\Workflow\Pipes\AbstractPipe;
+
+class {{class}} extends AbstractPipe {
+
+	/**
+	 * Run before the command is handled.
+	 *
+	 * @param	{{rootNamespace}}Commands\Command	$command
+	 * @return	mixed
+	 */
+	public function before($command)
+	{
+		//
+	}
+
+	/**
+	 * Run after the handled command.
+	 *
+	 * @param	mixed	$handled
+	 * @param	{{rootNamespace}}Commands\Command	$command
+	 * @return	mixed
+	 */
+	public function after($handled, $command)
+	{
+		//
+	}
+
+}

@@ -1,4 +1,0 @@
-suites:
-    workflow:
-        namespace: Cerbero\Workflow
-        spec_path: tests
