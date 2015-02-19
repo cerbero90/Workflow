@@ -1,0 +1,2 @@
+PublishPost:
+    - App\Workflows\PublishPost\Notifier

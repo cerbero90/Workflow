@@ -1,0 +1,4 @@
+UpdateUser:
+    - App\Workflows\UpdateUser\Notifier
+DeleteUser:
+    - App\Workflows\DeleteUser\Logger
