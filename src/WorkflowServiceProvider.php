@@ -1,9 +1,9 @@
 <?php namespace Cerbero\Workflow;
 
+use Cerbero\Workflow\WorkflowRunner;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Cerbero\Workflow\Inflectors\Inflector;
-use Cerbero\Workflow\WorkflowRunnerInterface;
 use Cerbero\Workflow\Wrappers\SymfonyYamlParser;
 use Cerbero\Workflow\Repositories\YamlPipelineRepository;
 use Cerbero\Workflow\Wrappers\LaravelTraitNamespaceDetector;
@@ -140,7 +140,7 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	private function registerWorkflowRunnersHook()
 	{
-		$this->app->afterResolving(function(WorkflowRunnerInterface $runner, $app)
+		$this->app->afterResolving(function(WorkflowRunner $runner, $app)
 		{
 			$runner->setWorkflow($app['cerbero.workflow']);
 		});
