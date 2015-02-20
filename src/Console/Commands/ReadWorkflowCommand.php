@@ -36,7 +36,8 @@ class ReadWorkflowCommand extends Command {
 	/**
 	 * Set the dependencies.
 	 *
-	 * @param  \Illuminate\Filesystem\Filesystem  $files
+	 * @param  \Cerbero\Workflow\Repositories\PipelineRepositoryInterface  $pipelines
+	 * @param  \Cerbero\Workflow\Console\Drawing\Drawer  $drawer
 	 * @return void
 	 */
 	public function __construct(PipelineRepositoryInterface $pipelines, Drawer $drawer)

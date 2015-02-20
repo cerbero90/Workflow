@@ -75,7 +75,7 @@ class Drawer {
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @param	string	$workflow
-	 * @return	void
+	 * @return	string
 	 */
 	public function draw($workflow)
 	{
