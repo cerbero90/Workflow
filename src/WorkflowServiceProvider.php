@@ -34,15 +34,28 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->publishes([
-			__DIR__ . '/config/workflow.php' => config_path('workflow.php')
-		]);
+		$this->publishConfig();
 
 		$this->commands($this->commands);
 
 		$facade = 'Cerbero\Workflow\Facades\Workflow';
 
 		AliasLoader::getInstance()->alias('Workflow', $facade);
+	}
+
+	/**
+	 * Publish the configuration file.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	private function publishConfig()
+	{
+		$config = __DIR__ . '/config/workflow.php';
+
+		$this->publishes([$config => config_path('workflow.php')]);
+
+		$this->mergeConfigFrom($config, 'workflow');
 	}
 
 	/**
