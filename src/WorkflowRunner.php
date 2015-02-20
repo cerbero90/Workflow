@@ -5,7 +5,7 @@
  *
  * @author	Andrea Marco Sartori
  */
-interface WorkflowRunnerInterface {
+interface WorkflowRunner {
 
 	/**
 	 * Set the workflows to run.
