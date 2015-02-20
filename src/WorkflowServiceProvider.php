@@ -1,9 +1,9 @@
 <?php namespace Cerbero\Workflow;
 
+use Cerbero\Workflow\WorkflowRunner;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Cerbero\Workflow\Inflectors\Inflector;
-use Cerbero\Workflow\WorkflowRunnerInterface;
 use Cerbero\Workflow\Wrappers\SymfonyYamlParser;
 use Cerbero\Workflow\Repositories\YamlPipelineRepository;
 use Cerbero\Workflow\Wrappers\LaravelTraitNamespaceDetector;
@@ -34,15 +34,28 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->publishes([
-			__DIR__ . '/config/workflow.php' => config_path('workflow.php')
-		]);
+		$this->publishConfig();
 
 		$this->commands($this->commands);
 
 		$facade = 'Cerbero\Workflow\Facades\Workflow';
 
 		AliasLoader::getInstance()->alias('Workflow', $facade);
+	}
+
+	/**
+	 * Publish the configuration file.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	private function publishConfig()
+	{
+		$config = __DIR__ . '/config/workflow.php';
+
+		$this->publishes([$config => config_path('workflow.php')]);
+
+		$this->mergeConfigFrom($config, 'workflow');
 	}
 
 	/**
@@ -140,7 +153,7 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	private function registerWorkflowRunnersHook()
 	{
-		$this->app->afterResolving(function(WorkflowRunnerInterface $runner, $app)
+		$this->app->afterResolving(function(WorkflowRunner $runner, $app)
 		{
 			$runner->setWorkflow($app['cerbero.workflow']);
 		});
