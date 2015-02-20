@@ -79,7 +79,7 @@ class Geometry {
 	 * Round the half of a number, either up or down.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	numeric	$number
+	 * @param	integer	$number
 	 * @param	boolean	$up
 	 * @return	integer
 	 */

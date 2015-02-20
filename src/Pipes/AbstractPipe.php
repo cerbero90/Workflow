@@ -63,7 +63,7 @@ abstract class AbstractPipe implements PipeInterface {
 	 * Call a method if it exists and resolve its dependencies.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	mixed	$method
+	 * @param	string	$method
 	 * @param	array	$parameters
 	 * @return	void
 	 */
