@@ -208,6 +208,7 @@ By default the detached pipes are not deleted, if you want to, you can use the `
 ```
 php artisan workflow:update RegisterUser --detach="notifier" --force
 ```
+Sometimes you may want to sort the attached pipes to carry in or out a given pipe, you can do that by editing the `workflows.yml` file. It contains all the created pipelines and their own pipes ordered from the outer (the first to be run) to the inner.
 
 Here is a recap of the `workflow:update` options:
 
