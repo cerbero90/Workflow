@@ -9,11 +9,13 @@
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/cerbero90/Workflow.svg?style=flat-square)](https://scrutinizer-ci.com/g/cerbero90/Workflow/)
 [![Gratipay](https://img.shields.io/gratipay/cerbero.svg?style=flat-square)](https://gratipay.com/cerbero/)
 
-Let's assume we want to develop a registration process, the main thing is storing user data, but we also want to validate input and send a welcome email.
+Let's assume we want to develop a registration process, the main thing is storing user data, but we also want to validate input, hash the password and send a welcome email.
 
-Now imagine this process as concentric circles: the storing of user data is the inner circle, whereas validation, email sending and any other logic are the increasingly outer circles.
+Now imagine this process as concentric circles: the storing of user data is the inner circle, whereas validation, hashing, email sending and any other logic are the increasingly outer circles.
 
-These concentric circles, or pipes, can be called all at once in a pipeline and have several advantages including running specific code before or after a given command and adding or removing any logic without even touching the controllers.
+Such concentric circles, or pipes, can be called all at once in a pipeline and have several advantages including running specific code before or after a given command and adding or removing any logic without even touching the controllers.
+
+This allows you to have all your controllers with a maximum of two lines of code per action, while keeping all their functionalities.
 
 This package is intended to automate the creation of such pipelines by using simple Artisan commands and owns other facilities like auto-validation, management of pipelines in a single file and visualization of their graphical representation in console.
 
@@ -45,57 +47,26 @@ and then edit the file `config/workflow.php`.
 Taking the introductive example, let's create the registration workflow by running:
 
 ```
-php artisan workflow:create RegisterUser --attach="notifier"
+php artisan workflow:create RegisterUser --attach="hash notify"
 ```
 
 The following files are automatically created under the `app` directory:
 
-File (click to see an example)                   | Description
+File (click to see the code)                     | Description
 ------------------------------------------------ | -----------
 [Commands/RegisterUserCommand.php][command]      | incapsulates the current task
 [Http/Requests/RegisterUserRequest.php][request] | contains the validation rules and permissions
-[Workflows/RegisterUser/Notifier.php][notifier]  | the attached pipe to send the welcome email
+[Workflows/RegisterUser/Hash.php][hash]          | the attached pipe to hash the password
+[Workflows/RegisterUser/Notify.php][notify]      | the attached pipe to send the welcome email
 [Workflows/workflows.yml][workflows]             | contains all the created pipelines with their own pipes
 
-[command]: https://github.com/cerbero90/workflow-demo/blob/master/app/Commands/RegisterUserCommand.php
-[request]: https://github.com/cerbero90/workflow-demo/blob/master/app/Http/Requests/RegisterUserRequest.php
-[notifier]: https://github.com/cerbero90/workflow-demo/blob/master/app/Workflows/RegisterUser/Notifier.php
-[workflows]: https://github.com/cerbero90/workflow-demo/blob/master/app/Workflows/workflows.yml
+[command]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/commands/RegisterUserCommand.php
+[request]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Http/Requests/RegisterUserRequest.php
+[hash]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Workflows/RegisterUser/Hash.php
+[notify]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Workflows/RegisterUser/Notify.php
+[workflows]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Workflows/workflows.yml
 
-While both [commands](http://laravel.com/docs/5.0/bus) and [requests](http://laravel.com/docs/5.0/validation#form-request-validation) are well documented, let's have a look at the newly created `Notifier` class:
-
-```php
-<?php namespace App\Workflows\RegisterUser;
-
-use Cerbero\Workflow\Pipes\AbstractPipe;
-
-class Notifier extends AbstractPipe {
-
-	/**
-	 * Run before the command is handled.
-	 *
-	 * @param	App\Commands\Command	$command
-	 * @return	mixed
-	 */
-	public function before($command)
-	{
-		//
-	}
-
-	/**
-	 * Run after the handled command.
-	 *
-	 * @param	mixed	$handled
-	 * @param	App\Commands\Command	$command
-	 * @return	mixed
-	 */
-	public function after($handled, $command)
-	{
-		//
-	}
-
-}
-```
+While both [commands](http://laravel.com/docs/5.0/bus) and [requests](http://laravel.com/docs/5.0/validation#form-request-validation) are well documented, let's have a look at one of the newly created pipes, let's say [Hash.php][hash].
 
 This class has two methods: `before()` is run before handling the `RegisterUserCommand`, which is passed as argument, whereas `after()` is run after handling the command and also has the value returned by the handled command as parameter e.g. the User model.
 
@@ -103,9 +74,9 @@ You can inject whatever you need in both methods, everything is resolved by the 
 
 All workflows are stored within the `workflows.yml` file that makes it easier to read and update pipelines and their pipes even if, as you will see, there are also Artisan commands to automate these tasks.
 
-As you may have noticed, you only created a Notifier and no class to validate data. Every workflow validates the input automatically by reading the validation rules and permissions from the generated requests e.g. `RegisterUserRequest`.
+As you may have noticed, you only created Hash and Notify but nothing to validate data. Every workflow validates the input automatically by reading the validation rules and permissions from the generated requests e.g. `RegisterUserRequest`.
 
-But sometimes you may not have input to validate, in these cases you can avoid the creation of the Request class by using the `--unguard` flag:
+However sometimes you may not have input to validate, in these cases you can avoid the creation of the Request class by using the `--unguard` flag:
 
 ```
 php artisan workflow:create TakeItEasy --unguard
@@ -128,17 +99,21 @@ php artisan workflow:read RegisterUser
 that will output something similar:
 
 ```
-           ║
-╔══════════╬══════════╗
-║ Notifier ║ before() ║
-║ ╔════════╩════════╗ ║
-║ ║  RegisterUser   ║ ║
-║ ╚════════╦════════╝ ║
-║ Notifier ║ after()  ║
-╚══════════╬══════════╝
-           ∇
+             ║
+╔════════════╬════════════╗
+║       Hash ║ before()   ║
+║ ╔══════════╬══════════╗ ║
+║ ║   Notify ║ before() ║ ║
+║ ║ ╔════════╩════════╗ ║ ║
+║ ║ ║  RegisterUser   ║ ║ ║
+║ ║ ╚════════╦════════╝ ║ ║
+║ ║   Notify ║ after()  ║ ║
+║ ╚══════════╬══════════╝ ║
+║       Hash ║ after()    ║
+╚════════════╬════════════╝
+             ∇
 ```
-The arrow in the middle of the drawing shows the itinerary of the code within the pipeline. Please note how the `Notifier` pipe wraps the `RegisterUser` command and how its methods are run before and after the command respectively.
+The arrow in the middle of the drawing shows the itinerary of the code within the pipeline. Please note how the `Hash` pipe wraps the `Notify` pipe that in turn wraps the `RegisterUser` command and how the methods of the pipes are run before and after the command respectively.
 
 ## Usage
 
@@ -157,7 +132,7 @@ abstract class Controller extends BaseController implements WorkflowRunner {
 }
 
 ```
-and now you can run your workflow by calling it through the `$workflow` property in every controller:
+and now you can run your workflow by calling it through the `$workflow` property available in every controller:
 
 ```php
 public function store()
@@ -193,6 +168,8 @@ public function store()
 }
 ```
 
+You can see a [working demo here](https://github.com/cerbero90/workflow-demo/tree/master/app).
+
 ## Update a workflow
 
 One of the biggest advantages of using pipelines is that you can easily add and remove functionalities keeping the rest of your code intact.
@@ -200,13 +177,13 @@ One of the biggest advantages of using pipelines is that you can easily add and 
 The Artisan command `workflow:update` can attach and detach pipes of existing pipelines:
 
 ```
-php artisan workflow:update RegisterUser --attach="uploader logger" --detach="notifier"
+php artisan workflow:update RegisterUser --attach="upload log" --detach="notify"
 ```
 
 By default the detached pipes are not deleted, if you want to, you can use the `--force` flag:
 
 ```
-php artisan workflow:update RegisterUser --detach="notifier" --force
+php artisan workflow:update RegisterUser --detach="notify" --force
 ```
 Sometimes you may want to sort the attached pipes to carry in or out a given pipe, you can do that by editing the `workflows.yml` file. It contains all the created pipelines and their own pipes ordered from the outer (the first to be run) to the inner.
 
