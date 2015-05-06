@@ -107,7 +107,9 @@ class Workflow {
 
 		$pipes = $this->pipelines->getPipesByPipeline($workflow);
 
-		return $this->dispatcher->pipeThrough($pipes)->dispatchFrom($command, $request);
+		$parameters = $this->container->make('router')->current()->parameters();
+
+		return $this->dispatcher->pipeThrough($pipes)->dispatchFrom($command, $request, $parameters);
 	}
 
 	/**

@@ -45,7 +45,7 @@ class WorkflowSpec extends ObjectBehavior {
      * @author	Andrea Marco Sartori
      * @return	void
      */
-    public function it_resolves_the_proper_request_if_existing($pipelines, $container, $inflector, $dispatcher, ExistingRequest $request)
+    public function it_resolves_the_proper_request_if_existing($pipelines, $container, Router $router, $inflector, $dispatcher, ExistingRequest $request)
     {
     	$pipelines->exists('registerUser')->willReturn(true);
 
@@ -55,13 +55,19 @@ class WorkflowSpec extends ObjectBehavior {
 
     	$container->make('spec\Cerbero\Workflow\ExistingRequest')->shouldBeCalled()->willReturn($request);
 
+        $container->make('router')->willReturn($router);
+
+        $router->current()->willReturn($router);
+
+        $router->parameters()->willReturn(['foo' => 'bar']);
+
     	$inflector->getCommand()->willReturn('command');
 
     	$pipelines->getPipesByPipeline('registerUser')->willReturn(['pipe']);
 
     	$dispatcher->pipeThrough(['pipe'])->willReturn($dispatcher);
 
-    	$dispatcher->dispatchFrom('command', $request)->shouldBeCalled();
+    	$dispatcher->dispatchFrom('command', $request, ['foo' => 'bar'])->shouldBeCalled();
 
     	$this->registerUser();
     }
@@ -72,7 +78,7 @@ class WorkflowSpec extends ObjectBehavior {
      * @author	Andrea Marco Sartori
      * @return	void
      */
-    public function it_dispatches_a_command_through_a_pipeline_from_a_default_request($pipelines, $container, $inflector, $dispatcher, ArrayAccess $request)
+    public function it_dispatches_a_command_through_a_pipeline_from_a_default_request($pipelines, $container, Router $router, $inflector, $dispatcher, ArrayAccess $request)
     {
     	$pipelines->exists('registerUser')->willReturn(true);
 
@@ -82,18 +88,29 @@ class WorkflowSpec extends ObjectBehavior {
 
     	$container->make('Illuminate\Http\Request')->shouldBeCalled()->willReturn($request);
 
+        $container->make('router')->willReturn($router);
+
+        $router->current()->willReturn($router);
+
+        $router->parameters()->willReturn(['foo' => 'bar']);
+
     	$inflector->getCommand()->willReturn('command');
 
     	$pipelines->getPipesByPipeline('registerUser')->willReturn(['pipe']);
 
     	$dispatcher->pipeThrough(['pipe'])->willReturn($dispatcher);
 
-    	$dispatcher->dispatchFrom('command', $request)->shouldBeCalled();
+    	$dispatcher->dispatchFrom('command', $request, ['foo' => 'bar'])->shouldBeCalled();
 
-    	$this->registerUser();
+    	$this->registerUser('foo', 'bar');
     }
 
 }
 
 
 abstract class ExistingRequest implements ArrayAccess {}
+
+interface Router {
+    function current();
+    function parameters();
+}
