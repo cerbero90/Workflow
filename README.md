@@ -9,17 +9,19 @@
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/cerbero90/Workflow.svg?style=flat-square)](https://scrutinizer-ci.com/g/cerbero90/Workflow/)
 [![Gratipay](https://img.shields.io/gratipay/cerbero.svg?style=flat-square)](https://gratipay.com/cerbero/)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/608e8d86-9eae-411c-8b2c-6dcaba5814a4/big.png)](https://insight.sensiolabs.com/projects/608e8d86-9eae-411c-8b2c-6dcaba5814a4)
+
 Let's assume we want to develop a registration process, the main thing is storing user data, but we also want to validate input, hash the password and send a welcome email.
 
 Now imagine this process as concentric circles: the storing of user data is the inner circle, whereas validation, hashing, email sending and any other logic are the increasingly outer circles.
 
-Such concentric circles, or pipes, can be called all at once in a pipeline and have several advantages including running specific code before or after a given command and adding or removing any logic without even touching the controllers.
+Such concentric circles, or pipes, can be called all at once in a pipeline and have several advantages including running specific code before or after a given command and adding/removing any logic without even touching controllers.
 
-This allows you to have all your controllers with a maximum of two lines of code per action, while keeping all their functionalities.
+This allows you to have all your controllers with just a few lines (usually 2) per action, while keeping all their functionalities.
 
-This package is intended to automate the creation of such pipelines by using simple Artisan commands and owns other facilities like auto-validation, management of pipelines in a single file and visualization of their graphical representation in console.
+This package is intended to automate the creation of such pipelines by using simple Artisan commands and it's endowed with other facilities like auto-validation, management of pipelines in a single file and visualization of their graphical representation in console.
 
-> **Note**: if you are using Laravel 4, please refer to [this version](https://github.com/cerbero90/Workflow/tree/2.1.0) that leverages the decorators design pattern.
+> **Note**: if you are using Laravel 4, have a look at [this version](https://github.com/cerbero90/Workflow/tree/2.1.0) that leverages the decorators design pattern.
 
 ## Installation
 
@@ -65,6 +67,10 @@ File (click to see the code)                     | Description
 [hash]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Workflows/RegisterUser/Hash.php
 [notify]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Workflows/RegisterUser/Notify.php
 [workflows]: https://github.com/cerbero90/workflow-demo/blob/3cfc0b250a2d065502249e2bfb22ad11a53931b7/app/Workflows/workflows.yml
+
+> **Update**
+>
+> As of v3.1 you can also map route parameters into commands constructor
 
 While both [commands](http://laravel.com/docs/5.0/bus) and [requests](http://laravel.com/docs/5.0/validation#form-request-validation) are well documented, let's have a look at one of the newly created pipes, let's say [Hash.php][hash].
 
