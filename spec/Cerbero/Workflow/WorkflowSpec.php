@@ -5,20 +5,20 @@ namespace spec\Cerbero\Workflow;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
-use Cerbero\Workflow\Wrappers\PipingDispatcherInterface;
 use Cerbero\Workflow\Inflectors\InflectorInterface;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Bus\Dispatcher;
 use ArrayAccess;
 
 class WorkflowSpec extends ObjectBehavior {
 
 	public function let(
 		PipelineRepositoryInterface $pipelines,
-		PipingDispatcherInterface $dispatcher,
-		InflectorInterface $inflector,
-		Container $container
+        InflectorInterface $inflector,
+        Container $container,
+		Dispatcher $dispatcher
 	) {
-		$this->beConstructedWith($pipelines, $dispatcher, $inflector, $container);
+		$this->beConstructedWith($pipelines, $inflector, $container, $dispatcher);
 	}
 
     public function it_is_initializable()
