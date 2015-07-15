@@ -1,6 +1,6 @@
 {
     "name": "cerbero/workflow",
-    "description": "Create extensible and maintainable applications by harnessing the power of pipelines.",
+    "description": "Create extendible and maintainable applications by harnessing the power of pipelines.",
     "keywords": ["laravel", "hub", "pipeline", "bus", "dispatcher"],
     "require": {
         "php": ">=5.4.0",
