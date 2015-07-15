@@ -74,14 +74,14 @@ class Inflector implements InflectorInterface {
 	}
 
 	/**
-	 * Retrieve the inflected command.
+	 * Retrieve the inflected job.
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @return	string
 	 */
-	public function getCommand()
+	public function getJob()
 	{
-		return $this->compose('Command', 'Commands');
+		return $this->compose('Job', 'Jobs');
 	}
 
 }

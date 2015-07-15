@@ -46,15 +46,15 @@ class InflectorSpec extends ObjectBehavior
     }
 
     /**
-     * @testdox	It inflects the command.
+     * @testdox	It inflects the job.
      *
      * @author	Andrea Marco Sartori
      * @return	void
      */
-    public function it_inflects_the_command()
+    public function it_inflects_the_job()
     {
-    	$expected = 'App\Commands\RegisterUserCommand';
+    	$expected = 'App\Jobs\RegisterUserJob';
 
-    	$this->of('registerUser')->getCommand()->shouldReturn($expected);
+    	$this->of('registerUser')->getJob()->shouldReturn($expected);
     }
 }

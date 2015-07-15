@@ -5,20 +5,20 @@ namespace spec\Cerbero\Workflow;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
-use Cerbero\Workflow\Wrappers\PipingDispatcherInterface;
 use Cerbero\Workflow\Inflectors\InflectorInterface;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Bus\Dispatcher;
 use ArrayAccess;
 
 class WorkflowSpec extends ObjectBehavior {
 
 	public function let(
 		PipelineRepositoryInterface $pipelines,
-		PipingDispatcherInterface $dispatcher,
-		InflectorInterface $inflector,
-		Container $container
+        InflectorInterface $inflector,
+        Container $container,
+		Dispatcher $dispatcher
 	) {
-		$this->beConstructedWith($pipelines, $dispatcher, $inflector, $container);
+		$this->beConstructedWith($pipelines, $inflector, $container, $dispatcher);
 	}
 
     public function it_is_initializable()
@@ -61,24 +61,24 @@ class WorkflowSpec extends ObjectBehavior {
 
         $router->parameters()->willReturn(['foo' => 'bar']);
 
-    	$inflector->getCommand()->willReturn('command');
+    	$inflector->getJob()->willReturn('job');
 
     	$pipelines->getPipesByPipeline('registerUser')->willReturn(['pipe']);
 
     	$dispatcher->pipeThrough(['pipe'])->willReturn($dispatcher);
 
-    	$dispatcher->dispatchFrom('command', $request, ['foo' => 'bar'])->shouldBeCalled();
+    	$dispatcher->dispatchFrom('job', $request, ['foo' => 'bar'])->shouldBeCalled();
 
     	$this->registerUser();
     }
 
     /**
-     * @testdox	It dispatches a command through a pipeline from a default request.
+     * @testdox	It dispatches a job through a pipeline from a default request.
      *
      * @author	Andrea Marco Sartori
      * @return	void
      */
-    public function it_dispatches_a_command_through_a_pipeline_from_a_default_request($pipelines, $container, Router $router, $inflector, $dispatcher, ArrayAccess $request)
+    public function it_dispatches_a_job_through_a_pipeline_from_a_default_request($pipelines, $container, Router $router, $inflector, $dispatcher, ArrayAccess $request)
     {
     	$pipelines->exists('registerUser')->willReturn(true);
 
@@ -94,13 +94,13 @@ class WorkflowSpec extends ObjectBehavior {
 
         $router->parameters()->willReturn(['foo' => 'bar']);
 
-    	$inflector->getCommand()->willReturn('command');
+    	$inflector->getJob()->willReturn('job');
 
     	$pipelines->getPipesByPipeline('registerUser')->willReturn(['pipe']);
 
     	$dispatcher->pipeThrough(['pipe'])->willReturn($dispatcher);
 
-    	$dispatcher->dispatchFrom('command', $request, ['foo' => 'bar'])->shouldBeCalled();
+    	$dispatcher->dispatchFrom('job', $request, ['foo' => 'bar'])->shouldBeCalled();
 
     	$this->registerUser('foo', 'bar');
     }

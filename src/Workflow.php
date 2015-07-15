@@ -1,9 +1,9 @@
 <?php namespace Cerbero\Workflow;
 
 use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
-use Cerbero\Workflow\Wrappers\PipingDispatcherInterface;
 use Cerbero\Workflow\Inflectors\InflectorInterface;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Bus\Dispatcher;
 
 /**
  * Hub of the pipelines.
@@ -20,12 +20,6 @@ class Workflow {
 
 	/**
 	 * @author	Andrea Marco Sartori
-	 * @var		Cerbero\Workflow\Wrappers\PipingDispatcherInterface	$dispatcher	Bus dispatcher.
-	 */
-	protected $dispatcher;
-
-	/**
-	 * @author	Andrea Marco Sartori
 	 * @var		Cerbero\Workflow\Inflectors\InflectorInterface	$inflector	Inflector.
 	 */
 	protected $inflector;
@@ -35,6 +29,12 @@ class Workflow {
 	 * @var		Illuminate\Contracts\Container\Container	$container	Service container.
 	 */
 	protected $container;
+
+	/**
+	 * @author	Andrea Marco Sartori
+	 * @var		Illuminate\Contracts\Bus\Dispatcher	$dispatcher	Bus dispatcher.
+	 */
+	protected $dispatcher;
 	
 	/**
 	 * Set the dependencies.
@@ -48,14 +48,14 @@ class Workflow {
 	 */
 	public function __construct(
 		PipelineRepositoryInterface $pipelines,
-		PipingDispatcherInterface $dispatcher,
 		InflectorInterface $inflector,
-		Container $container
+		Container $container,
+		Dispatcher $dispatcher
 	) {
 		$this->pipelines  = $pipelines;
-		$this->dispatcher = $dispatcher;
 		$this->inflector  = $inflector;
 		$this->container  = $container;
+		$this->dispatcher = $dispatcher;
 	}
 
 	/**
@@ -101,15 +101,15 @@ class Workflow {
 	 */
 	protected function dispatchWorkflow($workflow)
 	{
-		$request = $this->resolveRequest();
+		$job = $this->inflector->getJob();
 
-		$command = $this->inflector->getCommand();
+		$request = $this->resolveRequest();
 
 		$pipes = $this->pipelines->getPipesByPipeline($workflow);
 
 		$parameters = $this->container->make('router')->current()->parameters();
 
-		return $this->dispatcher->pipeThrough($pipes)->dispatchFrom($command, $request, $parameters);
+		return $this->dispatcher->pipeThrough($pipes)->dispatchFrom($job, $request, $parameters);
 	}
 
 	/**

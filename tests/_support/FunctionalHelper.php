@@ -35,16 +35,16 @@ class FunctionalHelper extends \Codeception\Module {
 	}
 
 	/**
-	 * Check if the content of a generated command is equal to the given stub.
+	 * Check if the content of a generated job is equal to the given stub.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$command
+	 * @param	string	$job
 	 * @param	string	$stub
 	 * @return	void
 	 */
-	public function seeInCommand($command, $stub)
+	public function seeInJob($job, $stub)
 	{
-		$file = "Commands/{$command}.php";
+		$file = "Jobs/{$job}.php";
 
 		$this->seeStubInFile($file, $stub);
 	}
@@ -140,7 +140,7 @@ class FunctionalHelper extends \Codeception\Module {
 	{
 		$this->deleteDirIfExists($path);
 
-		$this->deleteFileIfExists("Commands/{$workflow}Command.php");
+		$this->deleteFileIfExists("Jobs/{$workflow}Job.php");
 
 		$this->deleteFileIfExists("Http/Requests/{$workflow}Request.php");
 	}
@@ -220,31 +220,31 @@ class FunctionalHelper extends \Codeception\Module {
 	}
 
 	/**
-	 * Assert a given command does exist.
+	 * Assert a given job does exist.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$command
+	 * @param	string	$job
 	 * @param	string	$path
 	 * @return	void
 	 */
-	public function seeCommand($command, $path = 'Commands')
+	public function seeJob($job, $path = 'Jobs')
 	{
-		$file = app_path("{$path}/{$command}.php");
+		$file = app_path("{$path}/{$job}.php");
 
 		$this->filesystem->seeFileFound($file);
 	}
 
 	/**
-	 * Assert a given command does not exist.
+	 * Assert a given job does not exist.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	string	$command
+	 * @param	string	$job
 	 * @param	string	$path
 	 * @return	void
 	 */
-	public function dontSeeCommand($command, $path = 'Commands')
+	public function dontSeeJob($job, $path = 'Jobs')
 	{
-		$file = app_path("{$path}/{$command}.php");
+		$file = app_path("{$path}/{$job}.php");
 
 		$this->filesystem->dontSeeFileFound($file);
 	}
