@@ -52,9 +52,9 @@ class DeleteWorkflowCommand extends WorkflowGeneratorCommand {
 	{
 		$files = $this->pipelines->getPipesByPipeline($workflow);
 
-		$files[] = $this->inflector->getCommand();
-
 		$files[] = $this->inflector->getRequest();
+
+		$files[] = $this->inflector->getJob();
 
 		$this->deleteIfForced($files);
 	}

@@ -88,7 +88,7 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand {
 	 */
 	protected function generateJob()
 	{
-		$name = $this->inflector->getCommand();
+		$name = $this->inflector->getJob();
 
 		$this->call('make:job', compact('name'));
 	}

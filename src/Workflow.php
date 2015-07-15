@@ -101,15 +101,15 @@ class Workflow {
 	 */
 	protected function dispatchWorkflow($workflow)
 	{
-		$request = $this->resolveRequest();
+		$job = $this->inflector->getJob();
 
-		$command = $this->inflector->getCommand();
+		$request = $this->resolveRequest();
 
 		$pipes = $this->pipelines->getPipesByPipeline($workflow);
 
 		$parameters = $this->container->make('router')->current()->parameters();
 
-		return $this->dispatcher->pipeThrough($pipes)->dispatchFrom($command, $request, $parameters);
+		return $this->dispatcher->pipeThrough($pipes)->dispatchFrom($job, $request, $parameters);
 	}
 
 	/**
