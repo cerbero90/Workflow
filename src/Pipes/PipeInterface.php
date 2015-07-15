@@ -10,13 +10,13 @@ use \Closure;
 interface PipeInterface {
 
 	/**
-	 * Handle the given command.
+	 * Handle the given job.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	mixed	$command
+	 * @param	mixed	$job
 	 * @param	Closure	$next
 	 * @return	mixed
 	 */
-	public function handle($command, Closure $next);
+	public function handle($job, Closure $next);
 
 }

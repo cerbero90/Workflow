@@ -29,20 +29,20 @@ abstract class AbstractPipe implements PipeInterface {
 	}
 
 	/**
-	 * Handle the given command.
+	 * Handle the given job.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	mixed	$command
+	 * @param	mixed	$job
 	 * @param	Closure	$next
 	 * @return	mixed
 	 */
-	public function handle($command, Closure $next)
+	public function handle($job, Closure $next)
 	{
-		$this->callBefore($command);
+		$this->callBefore($job);
 
-		$handled = $next($command);
+		$handled = $next($job);
 
-		$this->callAfter($handled, $command);
+		$this->callAfter($handled, $job);
 
 		return $handled;
 	}
@@ -51,12 +51,12 @@ abstract class AbstractPipe implements PipeInterface {
 	 * Call the before method.
 	 *
 	 * @author	Andrea Marco Sartori
-	 * @param	Cerbero\Commands\Command	$command
+	 * @param	Cerbero\Jobs\Job	$job
 	 * @return	void
 	 */
-	protected function callBefore($command)
+	protected function callBefore($job)
 	{
-		$this->callIfExists('before', [$command]);
+		$this->callIfExists('before', [$job]);
 	}
 
 	/**
@@ -80,12 +80,12 @@ abstract class AbstractPipe implements PipeInterface {
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @param	mixed	$handled
-	 * @param	Cerbero\Commands\Command	$command
+	 * @param	Cerbero\Jobs\Job	$job
 	 * @return	void
 	 */
-	protected function callAfter($handled, $command)
+	protected function callAfter($handled, $job)
 	{
-		$this->callIfExists('after', [$handled, $command]);
+		$this->callIfExists('after', [$handled, $job]);
 	}
 
 }
