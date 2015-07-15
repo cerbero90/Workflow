@@ -1,30 +1,31 @@
-<?php namespace App\Workflows\UpdateUser;
+<?php
+
+namespace App\Workflows\UpdateUser;
 
 use Cerbero\Workflow\Pipes\AbstractPipe;
 
-class Notifier extends AbstractPipe {
+class Notifier extends AbstractPipe
+{
+    /**
+     * Run before the job is handled.
+     *
+     * @param   App\Jobs\Job    $job
+     * @return  mixed
+     */
+    public function before($job)
+    {
+        //
+    }
 
-	/**
-	 * Run before the command is handled.
-	 *
-	 * @param	App\Commands\Command	$command
-	 * @return	mixed
-	 */
-	public function before($command)
-	{
-		//
-	}
-
-	/**
-	 * Run after the handled command.
-	 *
-	 * @param	mixed	$handled
-	 * @param	App\Commands\Command	$command
-	 * @return	mixed
-	 */
-	public function after($handled, $command)
-	{
-		//
-	}
-
+    /**
+     * Run after the handled job.
+     *
+     * @param   mixed   $handled
+     * @param   App\Jobs\Job    $job
+     * @return  mixed
+     */
+    public function after($handled, $job)
+    {
+        //
+    }
 }

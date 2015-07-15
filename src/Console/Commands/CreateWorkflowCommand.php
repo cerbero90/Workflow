@@ -57,7 +57,7 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand {
 	{
 		$this->settleRepositoryIfNotExists();
 
-		$this->generateCommand();
+		$this->generateJob();
 
 		$this->generateRequestIfGuarded();
 
@@ -81,16 +81,16 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand {
 	}
 
 	/**
-	 * Create the command to handle.
+	 * Create the job to handle.
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @return	void
 	 */
-	protected function generateCommand()
+	protected function generateJob()
 	{
 		$name = $this->inflector->getCommand();
 
-		$this->call('make:command', compact('name'));
+		$this->call('make:job', compact('name'));
 	}
 
 	/**
