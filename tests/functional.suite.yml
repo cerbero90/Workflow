@@ -9,5 +9,4 @@ modules:
     enabled: [Filesystem, FunctionalHelper, Cli, Laravel5]
     config:
         Laravel5:
-            root: ../../../
             environment_file: .env.testing
