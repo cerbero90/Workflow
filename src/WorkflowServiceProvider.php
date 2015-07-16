@@ -124,25 +124,10 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	private function registerWorkflow()
 	{
-		$this->registerDispatcher();
-
 		$this->app->bindShared('cerbero.workflow', function($app)
 		{
 			return $app['Cerbero\Workflow\Workflow'];
 		});
-	}
-
-	/**
-	 * Add an alias to the bus dipatcher.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerDispatcher()
-	{
-		$abstract = 'Cerbero\Workflow\Wrappers\PipingDispatcherInterface';
-
-		$this->app->bind($abstract, 'Cerbero\Workflow\Wrappers\Dispatcher');
 	}
 
 	/**
