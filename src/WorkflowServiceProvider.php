@@ -124,7 +124,7 @@ class WorkflowServiceProvider extends ServiceProvider {
 	 */
 	private function registerWorkflow()
 	{
-		$this->app->bindShared('cerbero.workflow', function($app)
+		$this->app->singleton('cerbero.workflow', function($app)
 		{
 			return $app['Cerbero\Workflow\Workflow'];
 		});
@@ -156,7 +156,7 @@ class WorkflowServiceProvider extends ServiceProvider {
 		{
 			$name = ucfirst(last(explode('.', $command)));
 
-			$this->app->bindShared($command, function($app) use($name)
+			$this->app->singleton($command, function($app) use($name)
 			{
 				return $app["Cerbero\Workflow\Console\Commands\\{$name}WorkflowCommand"];
 			});
