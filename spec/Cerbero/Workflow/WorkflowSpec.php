@@ -7,7 +7,7 @@ use Prophecy\Argument;
 use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
 use Cerbero\Workflow\Inflectors\InflectorInterface;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Bus\Dispatcher;
+use Cerbero\Workflow\Wrappers\DispatcherInterface;
 use ArrayAccess;
 
 class WorkflowSpec extends ObjectBehavior {
@@ -16,7 +16,7 @@ class WorkflowSpec extends ObjectBehavior {
 		PipelineRepositoryInterface $pipelines,
         InflectorInterface $inflector,
         Container $container,
-		Dispatcher $dispatcher
+		DispatcherInterface $dispatcher
 	) {
 		$this->beConstructedWith($pipelines, $inflector, $container, $dispatcher);
 	}
