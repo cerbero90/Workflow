@@ -2,8 +2,8 @@
 
 use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
 use Cerbero\Workflow\Inflectors\InflectorInterface;
+use Cerbero\Workflow\Wrappers\DispatcherInterface;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Bus\Dispatcher;
 
 /**
  * Hub of the pipelines.
@@ -32,7 +32,7 @@ class Workflow {
 
 	/**
 	 * @author	Andrea Marco Sartori
-	 * @var		Illuminate\Contracts\Bus\Dispatcher	$dispatcher	Bus dispatcher.
+	 * @var		Cerbero\Workflow\Wrappers\DispatcherInterface	$dispatcher	Bus dispatcher.
 	 */
 	protected $dispatcher;
 	
@@ -41,7 +41,7 @@ class Workflow {
 	 *
 	 * @author	Andrea Marco Sartori
 	 * @param	Cerbero\Workflow\Repositories\PipelineRepositoryInterface	$pipelines
-	 * @param	Cerbero\Workflow\Wrappers\PipingDispatcherInterface	$dispatcher
+	 * @param	Cerbero\Workflow\Wrappers\DispatcherInterface	$dispatcher
 	 * @param	Cerbero\Workflow\Inflectors\InflectorInterface	$inflector
 	 * @param	Illuminate\Contracts\Container\Container	$container
 	 * @return	void
@@ -50,7 +50,7 @@ class Workflow {
 		PipelineRepositoryInterface $pipelines,
 		InflectorInterface $inflector,
 		Container $container,
-		Dispatcher $dispatcher
+		DispatcherInterface $dispatcher
 	) {
 		$this->pipelines  = $pipelines;
 		$this->inflector  = $inflector;
