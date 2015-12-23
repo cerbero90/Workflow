@@ -70,6 +70,8 @@ class WorkflowServiceProvider extends ServiceProvider {
 
 		$this->registerInflector();
 
+		$this->registerDispatcher();
+
 		$this->registerWorkflow();
 
 		$this->registerWorkflowRunnersHook();
@@ -113,6 +115,22 @@ class WorkflowServiceProvider extends ServiceProvider {
 		$this->app->bind($abstract, function()
 		{
 			return new Inflector(new LaravelTraitNamespaceDetector);
+		});
+	}
+
+	/**
+	 * Register the bus dispatcher.
+	 *
+	 * @author	Andrea Marco Sartori
+	 * @return	void
+	 */
+	private function registerDispatcher()
+	{
+		$abstract = 'Cerbero\Workflow\Wrappers\DispatcherInterface';
+
+		$this->app->bind($abstract, function($app)
+		{
+			return $app['Cerbero\Workflow\Wrappers\MarshalDispatcher'];
 		});
 	}
 
