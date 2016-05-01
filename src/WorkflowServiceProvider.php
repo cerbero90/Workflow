@@ -2,12 +2,14 @@
 
 namespace Cerbero\Workflow;
 
+use Cerbero\Workflow\Facades\Workflow as Facade;
 use Cerbero\Workflow\Inflectors\Inflector;
+use Cerbero\Workflow\Inflectors\InflectorInterface;
+use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
 use Cerbero\Workflow\Repositories\YamlPipelineRepository;
 use Cerbero\Workflow\Workflow;
 use Cerbero\Workflow\WorkflowRunner;
 use Cerbero\Workflow\Wrappers\DispatcherInterface;
-use Cerbero\Workflow\Wrappers\LaravelTraitNamespaceDetector;
 use Cerbero\Workflow\Wrappers\MarshalDispatcher;
 use Cerbero\Workflow\Wrappers\SymfonyYamlParser;
 use Illuminate\Foundation\AliasLoader;
