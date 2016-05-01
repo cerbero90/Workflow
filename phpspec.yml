@@ -1,8 +1,8 @@
 suites:
     main:
         spec_path: tests
-        namespace: Cerbero\:namespace
-        psr4_prefix: Cerbero\:namespace
+        namespace: Cerbero\Workflow
+        psr4_prefix: Cerbero\Workflow
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 code_coverage:
