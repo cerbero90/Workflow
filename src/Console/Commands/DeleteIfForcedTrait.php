@@ -5,14 +5,14 @@ namespace Cerbero\Workflow\Console\Commands;
 /**
  * Trait to delete files if forced.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 trait DeleteIfForcedTrait
 {
     /**
      * Delete the given files if force is set.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */

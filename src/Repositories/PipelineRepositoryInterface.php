@@ -5,14 +5,14 @@ namespace Cerbero\Workflow\Repositories;
 /**
  * Interface for pipeline repositories.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 interface PipelineRepositoryInterface
 {
     /**
      * Retrieve the source of the pipelines.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */
@@ -21,7 +21,7 @@ interface PipelineRepositoryInterface
     /**
      * Determine whether a given pipeline exists.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *
@@ -32,7 +32,7 @@ interface PipelineRepositoryInterface
     /**
      * Retrieve the pipes of a given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *
@@ -43,7 +43,7 @@ interface PipelineRepositoryInterface
     /**
      * Create the pipelines storage.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -52,7 +52,7 @@ interface PipelineRepositoryInterface
     /**
      * Store the given pipeline and its pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      * @param array  $pipes
@@ -64,7 +64,7 @@ interface PipelineRepositoryInterface
     /**
      * Update the given pipeline and its pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      * @param array  $attachments
@@ -77,7 +77,7 @@ interface PipelineRepositoryInterface
     /**
      * Destroy a given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *

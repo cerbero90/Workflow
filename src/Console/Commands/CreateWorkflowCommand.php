@@ -23,9 +23,9 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand
     protected $description = 'Create a new workflow';
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $type	Type of class to generate.
+     * @var string $type    Type of class to generate.
      */
     protected $type = 'Pipe';
 
@@ -52,7 +52,7 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Generate all the needed files.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -70,7 +70,7 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Settle the pipeline repository if it does not exist.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -86,7 +86,7 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Create the job to handle.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -100,7 +100,7 @@ class CreateWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Create the request if unguard is not set.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */

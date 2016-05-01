@@ -24,16 +24,16 @@ class ReadWorkflowCommand extends Command
     protected $description = 'Show an existing workflow';
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines	Pipeline repository.
+     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines    Pipeline repository.
      */
     protected $pipelines;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Console\Drawing\Drawer $drawer	The workflow drawer.
+     * @var Cerbero\Workflow\Console\Drawing\Drawer $drawer    The workflow drawer.
      */
     protected $drawer;
 

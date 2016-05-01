@@ -23,9 +23,9 @@ class UpdateWorkflowCommand extends WorkflowGeneratorCommand
     protected $description = 'Update an existing workflow';
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $type	Type of class to generate.
+     * @var string $type    Type of class to generate.
      */
     protected $type = 'Pipe';
 
@@ -54,7 +54,7 @@ class UpdateWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Delete the detached pipes if force is set.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class UpdateWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Update the given workflow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $workflow
      *

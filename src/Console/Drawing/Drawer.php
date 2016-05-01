@@ -7,7 +7,7 @@ use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
 /**
  * Class to generate the drawing.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class Drawer
 {
@@ -34,37 +34,37 @@ class Drawer
     const CROSSROADS_DOWN = '╦';
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines	Pipeline repository.
+     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines    Pipeline repository.
      */
     protected $pipelines;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Console\Drawing\Geometry $geometry	The applied geometry.
+     * @var Cerbero\Workflow\Console\Drawing\Geometry $geometry    The applied geometry.
      */
     protected $geometry;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var array $pipes	List of pipes.
+     * @var array $pipes    List of pipes.
      */
     protected $pipes;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $drawing	The resulting drawing.
+     * @var string $drawing    The resulting drawing.
      */
     protected $drawing = '';
 
     /**
      * Set the dependencies.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines
      * @param Cerbero\Workflow\Console\Drawing\Geometry                 $geometry
@@ -81,7 +81,7 @@ class Drawer
     /**
      * Draw the given workflow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $workflow
      *
@@ -109,7 +109,7 @@ class Drawer
     /**
      * Set the pipes of the given workflow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $workflow
      *
@@ -132,7 +132,7 @@ class Drawer
     /**
      * Draw a character in the middle of the drawing.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $character
      *
@@ -148,7 +148,7 @@ class Drawer
     /**
      * Draw a row of the drawing.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $row
      *
@@ -162,7 +162,7 @@ class Drawer
     /**
      * Draw the beginning of all pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -180,7 +180,7 @@ class Drawer
     /**
      * Draw content wrapped by borders.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $content
      *
@@ -198,7 +198,7 @@ class Drawer
     /**
      * Draw the top border.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param bool $isCore
      *
@@ -216,7 +216,7 @@ class Drawer
     /**
      * Draw a border with the given bendings.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $left
      * @param string $middle
@@ -240,7 +240,7 @@ class Drawer
     /**
      * Replace a character in a given position of a string.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $original
      * @param string $replacement
@@ -260,7 +260,7 @@ class Drawer
     /**
      * Draw the core of the workflow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -276,7 +276,7 @@ class Drawer
     /**
      * Draw the bottom border.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param bool $isCore
      *
@@ -294,7 +294,7 @@ class Drawer
     /**
      * Draw the end of all pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */

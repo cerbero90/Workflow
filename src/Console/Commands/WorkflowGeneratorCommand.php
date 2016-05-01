@@ -11,21 +11,21 @@ use Symfony\Component\Console\Input\InputArgument;
 /**
  * Abstract implementation of a workflow generator.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 abstract class WorkflowGeneratorCommand extends GeneratorCommand
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines	Pipeline repository.
+     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines    Pipeline repository.
      */
     protected $pipelines;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Inflectors\InflectorInterface $inflector	Inflector.
+     * @var Cerbero\Workflow\Inflectors\InflectorInterface $inflector    Inflector.
      */
     protected $inflector;
 
@@ -61,7 +61,7 @@ abstract class WorkflowGeneratorCommand extends GeneratorCommand
     /**
      * Retrieve the name of the workflow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */

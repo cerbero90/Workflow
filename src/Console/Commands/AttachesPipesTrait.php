@@ -5,21 +5,21 @@ namespace Cerbero\Workflow\Console\Commands;
 /**
  * Trait to attach pipes to pipelines.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 trait AttachesPipesTrait
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $currentPipe	Pipe to generate.
+     * @var string $currentPipe    Pipe to generate.
      */
     protected $currentPipe;
 
     /**
      * Generate the specified pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -35,7 +35,7 @@ trait AttachesPipesTrait
     /**
      * Retrieve a list of pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $option
      *
@@ -69,7 +69,7 @@ trait AttachesPipesTrait
     /**
      * Retrieve the namespace of the workflows.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */
@@ -85,7 +85,7 @@ trait AttachesPipesTrait
     /**
      * Retrieve a list of pipes with their namespaces.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $option
      *

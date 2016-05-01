@@ -8,42 +8,42 @@ use Illuminate\Filesystem\Filesystem;
 /**
  * Pipeline repository using YAML.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class YamlPipelineRepository implements PipelineRepositoryInterface
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var array $pipelines	Pipelines list.
+     * @var array $pipelines    Pipelines list.
      */
     protected $pipelines;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Wrappers\YamlParserInterface $parser	YAML parser.
+     * @var Cerbero\Workflow\Wrappers\YamlParserInterface $parser    YAML parser.
      */
     protected $parser;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Illuminate\Filesystem\Filesystem $files	Filesystem.
+     * @var Illuminate\Filesystem\Filesystem $files    Filesystem.
      */
     protected $files;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $path	The workflows path.
+     * @var string $path    The workflows path.
      */
     protected $path;
 
     /**
      * Set the dependencies.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Workflow\Wrappers\YamlParserInterface $parser
      * @param Illuminate\Filesystem\Filesystem              $files
@@ -65,7 +65,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Parse the YAML file.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return array
      */
@@ -79,7 +79,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Retrieve the source of the pipelines.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */
@@ -93,7 +93,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Determine whether a given pipeline exists.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *
@@ -109,7 +109,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Normalize the name of the given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *
@@ -123,7 +123,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Retrieve the pipes of a given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *
@@ -139,7 +139,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Create the pipelines storage.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -153,7 +153,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Store the given pipeline and its pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      * @param array  $pipes
@@ -172,7 +172,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Update the given pipeline and its pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      * @param array  $attachments
@@ -192,7 +192,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Detach pipes from a given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param array $pipeline
      * @param array $pipes
@@ -207,7 +207,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Attach pipes to a given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param array $pipeline
      * @param array $pipes
@@ -222,7 +222,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Refresh the pipelines source.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -236,7 +236,7 @@ class YamlPipelineRepository implements PipelineRepositoryInterface
     /**
      * Destroy a given pipeline.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipeline
      *

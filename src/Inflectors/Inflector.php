@@ -7,28 +7,28 @@ use Cerbero\Workflow\Wrappers\NamespaceDetectorInterface;
 /**
  * Word inflector.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class Inflector implements InflectorInterface
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $word	Word to inflect.
+     * @var string $word    Word to inflect.
      */
     protected $word;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $namespace	The application namespace.
+     * @var string $namespace    The application namespace.
      */
     protected $namespace;
 
     /**
      * Set the application namespace.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Workflow\Wrappers\NamespaceDetectorInterface $detector Application namespace detector.
      *
@@ -42,7 +42,7 @@ class Inflector implements InflectorInterface
     /**
      * Set the word to inflect.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $word
      *
@@ -58,7 +58,7 @@ class Inflector implements InflectorInterface
     /**
      * Retrieve the inflected request.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */
@@ -70,7 +70,7 @@ class Inflector implements InflectorInterface
     /**
      * Compose the word to inflect.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $suffix
      * @param string $path
@@ -87,7 +87,7 @@ class Inflector implements InflectorInterface
     /**
      * Retrieve the inflected job.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */

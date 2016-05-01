@@ -45,7 +45,7 @@ class DeleteWorkflowCommand extends WorkflowGeneratorCommand
     /**
      * Delete all the generated files of the given workflow if forced.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $workflow
      *

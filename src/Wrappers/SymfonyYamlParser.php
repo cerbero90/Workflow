@@ -7,14 +7,14 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Symfony YAML files parser.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class SymfonyYamlParser implements YamlParserInterface
 {
     /**
      * Parse the given YAML file.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $path
      *
@@ -28,7 +28,7 @@ class SymfonyYamlParser implements YamlParserInterface
     /**
      * Dump the given array to YAML string.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param array $data
      *

@@ -98,9 +98,7 @@ class WorkflowServiceProvider extends ServiceProvider
         $this->app->bind(PipelineRepositoryInterface::class, function ($app) {
             return new YamlPipelineRepository(
                 new SymfonyYamlParser,
-
                 new \Illuminate\Filesystem\Filesystem,
-
                 config('workflow.path')
             );
         });

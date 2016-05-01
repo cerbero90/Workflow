@@ -5,14 +5,14 @@ namespace Cerbero\Workflow;
 /**
  * Interface for classes that run workflow.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 interface WorkflowRunner
 {
     /**
      * Set the workflows to run.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Workflow\Workflow $workflow
      *

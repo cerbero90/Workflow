@@ -7,7 +7,7 @@ use Illuminate\Console\AppNamespaceDetectorTrait;
 /**
  * Detector that uses a Laravel trait to detect the namespace.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class LaravelTraitNamespaceDetector implements NamespaceDetectorInterface
 {
@@ -16,7 +16,7 @@ class LaravelTraitNamespaceDetector implements NamespaceDetectorInterface
     /**
      * Detect the namespace used by an application.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */

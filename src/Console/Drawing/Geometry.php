@@ -5,7 +5,7 @@ namespace Cerbero\Workflow\Console\Drawing;
 /**
  * Geometry applied to the drawing.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class Geometry
 {
@@ -22,30 +22,30 @@ class Geometry
     const SPACE_FROM_ARROW = 1;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var string $core	The name of the core.
+     * @var string $core    The name of the core.
      */
     protected $core;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var array $pipes	List of pipes.
+     * @var array $pipes    List of pipes.
      */
     protected $pipes;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var int $nesting	Nesting level.
+     * @var int $nesting    Nesting level.
      */
     protected $nesting = 0;
 
     /**
      * Set the name of the core.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $core
      *
@@ -59,7 +59,7 @@ class Geometry
     /**
      * Set the pipes.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param array $pipes
      *
@@ -73,7 +73,7 @@ class Geometry
     /**
      * Calculate the half width of the drawing.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param bool $up
      *
@@ -89,7 +89,7 @@ class Geometry
     /**
      * Round the half of a number, either up or down.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param int  $number
      * @param bool $up
@@ -106,7 +106,7 @@ class Geometry
     /**
      * Calculate the total width of the drawing.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return int
      */
@@ -128,7 +128,7 @@ class Geometry
     /**
      * Calculate the length of the core name.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return int
      */
@@ -140,7 +140,7 @@ class Geometry
     /**
      * Calculate the length of the longest pipe name.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return int
      */
@@ -159,7 +159,7 @@ class Geometry
     /**
      * Retrieve the spaced pipe and method pair.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $pipe
      * @param string $arrow
@@ -181,7 +181,7 @@ class Geometry
     /**
      * Retrieve the blank spaces close to a word.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $word
      *
@@ -199,7 +199,7 @@ class Geometry
     /**
      * Retrieve the length of the borders of a side.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return int
      */
@@ -213,7 +213,7 @@ class Geometry
     /**
      * Add spaces around the given arrow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $arrow
      *
@@ -229,7 +229,7 @@ class Geometry
     /**
      * Retrieve the left borders formatted with the given border.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $border
      *
@@ -247,7 +247,7 @@ class Geometry
     /**
      * Retrieve the right borders formatted with the given border.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $border
      *
@@ -265,7 +265,7 @@ class Geometry
     /**
      * Increase the nesting level.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */
@@ -277,7 +277,7 @@ class Geometry
     /**
      * Calculate the width of the drawing without the borders.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return int
      */
@@ -289,7 +289,7 @@ class Geometry
     /**
      * Calculate the length of the borders.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return int
      */
@@ -301,7 +301,7 @@ class Geometry
     /**
      * Retrieve the spaced core name.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return string
      */
@@ -317,7 +317,7 @@ class Geometry
     /**
      * Retrieve the blank spaces close to the core.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param bool $up
      *
@@ -333,7 +333,7 @@ class Geometry
     /**
      * Decrease the nesting level.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return void
      */

@@ -5,14 +5,14 @@ namespace Cerbero\Workflow\Wrappers;
 /**
  * Interface for YAML file parsers.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 interface YamlParserInterface
 {
     /**
      * Parse the given YAML file.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $path
      *
@@ -23,7 +23,7 @@ interface YamlParserInterface
     /**
      * Dump the given array to YAML string.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param array $data
      *

@@ -8,21 +8,21 @@ use Illuminate\Contracts\Container\Container;
 /**
  * Abstract implementation of a pipe.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 abstract class AbstractPipe implements PipeInterface
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Illuminate\Contracts\Container\Container $container	Service container.
+     * @var Illuminate\Contracts\Container\Container $container    Service container.
      */
     protected $container;
 
     /**
      * Set the dependencies.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Illuminate\Contracts\Container\Container $container
      *
@@ -36,7 +36,7 @@ abstract class AbstractPipe implements PipeInterface
     /**
      * Handle the given job.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param mixed   $job
      * @param Closure $next
@@ -57,7 +57,7 @@ abstract class AbstractPipe implements PipeInterface
     /**
      * Call the before method.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Jobs\Job $job
      *
@@ -71,7 +71,7 @@ abstract class AbstractPipe implements PipeInterface
     /**
      * Call a method if it exists and resolve its dependencies.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $method
      * @param array  $parameters
@@ -88,7 +88,7 @@ abstract class AbstractPipe implements PipeInterface
     /**
      * Call the after method.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param mixed            $handled
      * @param Cerbero\Jobs\Job $job

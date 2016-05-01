@@ -2,6 +2,7 @@
 
 namespace Cerbero\Workflow;
 
+use BadFunctionCallException;
 use Cerbero\Workflow\Inflectors\InflectorInterface;
 use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
 use Cerbero\Workflow\Wrappers\DispatcherInterface;
@@ -10,42 +11,42 @@ use Illuminate\Contracts\Container\Container;
 /**
  * Hub of the pipelines.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class Workflow
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines	Pipelines repository.
+     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines    Pipelines repository.
      */
     protected $pipelines;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Inflectors\InflectorInterface $inflector	Inflector.
+     * @var Cerbero\Workflow\Inflectors\InflectorInterface $inflector    Inflector.
      */
     protected $inflector;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Illuminate\Contracts\Container\Container $container	Service container.
+     * @var Illuminate\Contracts\Container\Container $container    Service container.
      */
     protected $container;
 
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Wrappers\DispatcherInterface $dispatcher	Bus dispatcher.
+     * @var Cerbero\Workflow\Wrappers\DispatcherInterface $dispatcher    Bus dispatcher.
      */
     protected $dispatcher;
 
     /**
      * Set the dependencies.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines
      * @param Cerbero\Workflow\Wrappers\DispatcherInterface             $dispatcher
@@ -60,16 +61,16 @@ class Workflow
         Container $container,
         DispatcherInterface $dispatcher
     ) {
-        $this->pipelines = $pipelines;
-        $this->inflector = $inflector;
-        $this->container = $container;
+        $this->pipelines  = $pipelines;
+        $this->inflector  = $inflector;
+        $this->container  = $container;
         $this->dispatcher = $dispatcher;
     }
 
     /**
      * Dynamically call pipelines.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $name
      * @param array  $arguments
@@ -88,25 +89,25 @@ class Workflow
     /**
      * Throw an exception if the given workflow does not exist.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $workflow
      *
      * @return void
      */
-    protected function failIfNotExists($workflow)
+    private function failIfNotExists($workflow)
     {
-        if (!$this->pipelines->exists($workflow)) {
+        if (! $this->pipelines->exists($workflow)) {
             $error = "The workflow [$workflow] does not exist.";
 
-            throw new \BadFunctionCallException($error);
+            throw new BadFunctionCallException($error);
         }
     }
 
     /**
      * Dispatch the given workflow.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param string $workflow
      *
@@ -128,11 +129,11 @@ class Workflow
     /**
      * Resolve the apter request.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @return Illuminate\Http\Request
      */
-    protected function resolveRequest()
+    private function resolveRequest()
     {
         if (class_exists($request = $this->inflector->getRequest())) {
             return $this->container->make($request);

@@ -5,21 +5,21 @@ namespace Cerbero\Workflow;
 /**
  * Trait to set the workflow.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 trait RunsWorkflow
 {
     /**
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
-     * @var Cerbero\Workflow\Workflow $workflow	Workflows hub.
+     * @var Cerbero\Workflow\Workflow $workflow    Workflows hub.
      */
     protected $workflow;
 
     /**
      * Set the workflow to run.
      *
-     * @author	Andrea Marco Sartori
+     * @author    Andrea Marco Sartori
      *
      * @param Cerbero\Workflow\Workflow $workflow
      *
