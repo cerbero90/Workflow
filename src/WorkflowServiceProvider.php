@@ -20,7 +20,8 @@ use Illuminate\Support\ServiceProvider;
  *
  * @author    Andrea Marco Sartori
  */
-class WorkflowServiceProvider extends ServiceProvider {
+class WorkflowServiceProvider extends ServiceProvider
+{
 
     /**
      * @author    Andrea Marco Sartori
@@ -94,7 +95,7 @@ class WorkflowServiceProvider extends ServiceProvider {
      */
     private function registerPipelineRepository()
     {
-        $this->app->bind(PipelineRepositoryInterface::class, function($app) {
+        $this->app->bind(PipelineRepositoryInterface::class, function ($app) {
             return new YamlPipelineRepository(
                 new SymfonyYamlParser,
 
@@ -113,7 +114,7 @@ class WorkflowServiceProvider extends ServiceProvider {
      */
     private function registerInflector()
     {
-        $this->app->bind(InflectorInterface::class, function($app) {
+        $this->app->bind(InflectorInterface::class, function ($app) {
             return new Inflector($app->getNamespace());
         });
     }
@@ -148,7 +149,7 @@ class WorkflowServiceProvider extends ServiceProvider {
      */
     private function registerWorkflowRunnersHook()
     {
-        $this->app->afterResolving(function(WorkflowRunner $runner, $app) {
+        $this->app->afterResolving(function (WorkflowRunner $runner, $app) {
             $runner->setWorkflow($app['cerbero.workflow']);
         });
     }
@@ -164,7 +165,7 @@ class WorkflowServiceProvider extends ServiceProvider {
         foreach ($this->commands as $command) {
             $name = ucfirst(last(explode('.', $command)));
 
-            $this->app->singleton($command, function($app) use($name) {
+            $this->app->singleton($command, function ($app) use ($name) {
                 return $app["Cerbero\Workflow\Console\Commands\\{$name}WorkflowCommand"];
             });
         }
