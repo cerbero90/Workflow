@@ -11,39 +11,40 @@ use ReflectionParameter;
 /**
  * Wrapper to marshal commands before dispatching them.
  *
- * @author	Andrea Marco Sartori
+ * @author    Andrea Marco Sartori
  */
 class MarshalDispatcher implements DispatcherInterface
 {
     /**
-     * @author	Andrea Marco Sartori
-     *
-     * @var Illuminate\Contracts\Bus\Dispatcher $dispatcher	Bus dispatcher.
+     * @author    Andrea Marco Sartori
+     * @var        Illuminate\Contracts\Bus\Dispatcher    $dispatcher    Bus dispatcher.
      */
     protected $dispatcher;
 
     /**
-     * @author	Andrea Marco Sartori
-     *
-     * @var string Command to dispatch
+     * @author    Andrea Marco Sartori
+     * @var        string  $command    Command to dispatch
      */
     protected $command;
 
     /**
-     * @author	Andrea Marco Sartori
-     *
-     * @var \ArrayAccess Parameters values
+     * @author    Andrea Marco Sartori
+     * @var        \ArrayAccess  $source    Parameters from source
      */
-    protected $values;
+    protected $source;
+
+    /**
+     * @author    Andrea Marco Sartori
+     * @var        array  $extras    Extra parameters
+     */
+    protected $extras;
 
     /**
      * Set the dependencies.
      *
-     * @author	Andrea Marco Sartori
-     *
-     * @param Illuminate\Contracts\Bus\Dispatcher $dispatcher
-     *
-     * @return void
+     * @author    Andrea Marco Sartori
+     * @param    Illuminate\Contracts\Bus\Dispatcher    $dispatcher
+     * @return    void
      */
     public function __construct(Dispatcher $dispatcher)
     {
@@ -53,10 +54,8 @@ class MarshalDispatcher implements DispatcherInterface
     /**
      * Set the pipes commands should be piped through before dispatching.
      *
-     * @author	Andrea Marco Sartori
-     *
-     * @param array $pipes
-     *
+     * @author    Andrea Marco Sartori
+     * @param  array  $pipes
      * @return $this
      */
     public function pipeThrough(array $pipes)
@@ -69,19 +68,17 @@ class MarshalDispatcher implements DispatcherInterface
     /**
      * Marshal a command and dispatch it.
      *
-     * @author	Andrea Marco Sartori
-     *
-     * @param mixed        $command
-     * @param \ArrayAccess $source
-     * @param array        $extras
-     *
+     * @author    Andrea Marco Sartori
+     * @param  mixed  $command
+     * @param  \ArrayAccess  $source
+     * @param  array  $extras
      * @return mixed
      */
     public function dispatchFrom($command, ArrayAccess $source, array $extras = [])
     {
         $this->command = $command;
-
-        $this->values = array_merge((array) $source, $extras);
+        $this->source  = $source;
+        $this->extras  = $extras;
 
         return $this->dispatcher->dispatch($this->marshal());
     }
@@ -89,8 +86,7 @@ class MarshalDispatcher implements DispatcherInterface
     /**
      * Marshal the command to dispatch.
      *
-     * @author	Andrea Marco Sartori
-     *
+     * @author    Andrea Marco Sartori
      * @return mixed
      */
     protected function marshal()
@@ -107,11 +103,9 @@ class MarshalDispatcher implements DispatcherInterface
     /**
      * Retrieve the arguments to inject into the command constructor.
      *
-     * @author	Andrea Marco Sartori
-     *
-     * @param array $parameters
-     *
-     * @return array
+     * @author    Andrea Marco Sartori
+     * @param    array    $parameters
+     * @return    array
      */
     protected function getParamsToInject(array $parameters)
     {
@@ -124,14 +118,16 @@ class MarshalDispatcher implements DispatcherInterface
     /**
      * Get a parameter value for a marshaled command.
      *
-     * @author	Andrea Marco Sartori
-     *
-     * @param \ReflectionParameter $parameter
-     *
+     * @author    Andrea Marco Sartori
+     * @param  \ReflectionParameter  $parameter
      * @return mixed
      */
     protected function grabParameter(ReflectionParameter $parameter)
     {
+        if (isset($this->extras[$parameter->name])) {
+            return $this->extras[$parameter->name];
+        }
+
         if (isset($this->values[$parameter->name])) {
             return $this->values[$parameter->name];
         }
