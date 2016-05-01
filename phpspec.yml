@@ -1,0 +1,12 @@
+suites:
+    main:
+        spec_path: tests
+        namespace: Cerbero\:namespace
+        psr4_prefix: Cerbero\:namespace
+extensions:
+    - PhpSpec\Extension\CodeCoverageExtension
+code_coverage:
+    format:
+      - clover
+    output:
+      clover: coverage.clover

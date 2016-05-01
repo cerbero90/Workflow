@@ -2,14 +2,17 @@
 
 # Workflow
 
-[![Build Status](http://img.shields.io/travis/cerbero90/Workflow.svg?style=flat-square)](https://travis-ci.org/cerbero90/Workflow)
-[![Latest Stable Version](http://img.shields.io/packagist/v/cerbero/Workflow.svg?style=flat-square&label=stable)](https://packagist.org/packages/cerbero/workflow)
-[![License](http://img.shields.io/packagist/l/cerbero/Workflow.svg?style=flat-square)](https://packagist.org/packages/cerbero/workflow)
-[![Code Climate](https://img.shields.io/codeclimate/github/cerbero90/Workflow.svg?style=flat-square)](https://codeclimate.com/github/cerbero90/Workflow)
-[![Scrutinizer](https://img.shields.io/scrutinizer/g/cerbero90/Workflow.svg?style=flat-square)](https://scrutinizer-ci.com/g/cerbero90/Workflow/)
-[![Gratipay](https://img.shields.io/gratipay/cerbero.svg?style=flat-square)](https://gratipay.com/cerbero/)
+[![Author][ico-author]][link-author]
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![StyleCI][ico-styleci]][link-styleci]
+[![Total Downloads][ico-downloads]][link-downloads]
+[![Gratipay][ico-gratipay]][link-gratipay]
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/608e8d86-9eae-411c-8b2c-6dcaba5814a4/big.png)](https://insight.sensiolabs.com/projects/608e8d86-9eae-411c-8b2c-6dcaba5814a4)
+[![SensioLabsInsight][ico-sensiolabs]][link-sensiolabs]
 
 Let's assume we want to develop a registration process, the main thing is storing user data, but we also want to validate input, hash the password and send a welcome email.
 
@@ -23,14 +26,16 @@ This package is intended to automate the creation of such pipelines by using sim
 
 > **Note**: if you are using Laravel 4, have a look at [this version](https://github.com/cerbero90/Workflow/tree/2.1.0) that leverages the decorators design pattern.
 
-## Installation
+## Install
 
 Run this command in your application root:
-```
+
+``` bash
 composer require cerbero/workflow
 ```
 
 and add this string to the `providers` array in `config/app.php`:
+
 ```php
 'Cerbero\Workflow\WorkflowServiceProvider',
 ```
@@ -44,7 +49,9 @@ php artisan vendor:publish
 
 and then edit the file `config/workflow.php`.
 
-## Create a workflow
+## Usage
+
+### Create a workflow
 
 Taking the introductive example, let's create the registration workflow by running:
 
@@ -95,7 +102,7 @@ Option    | Shortcut | Description
 --attach  | -a       | The pipes to attach to the workflow
 --unguard | -u       | Do not make this workflow validate data
 
-## Read a workflow
+### Read a workflow
 
 To better understand the workflow of a given pipeline, you can run the command:
 
@@ -121,7 +128,7 @@ that will output something similar:
 ```
 The arrow in the middle of the drawing shows the itinerary of the code within the pipeline. Please note how the `Hash` pipe wraps the `Notify` pipe that in turn wraps the `RegisterUser` command and how the methods of the pipes are run before and after the command respectively.
 
-## Usage
+### Run a workflow
 
 Now that you have created the registration workflow and seen how it works in theory, it's time to see it in action.
 
@@ -176,7 +183,7 @@ public function store()
 
 You can see a [working demo here](https://github.com/cerbero90/workflow-demo/tree/master/app).
 
-## Update a workflow
+### Update a workflow
 
 One of the biggest advantages of using pipelines is that you can easily add and remove functionalities keeping the rest of your code intact.
 
@@ -201,7 +208,7 @@ Option    | Shortcut | Description
 --detach  | -d       | The pipes to detach from the workflow
 --force   | -f       | Delete the files of detached pipes
 
-## Delete a workflow
+### Delete a workflow
 
 To delete an entire pipeline, you can run:
 
@@ -214,3 +221,52 @@ Like the update command, the detached pipes are not deleted by default, again yo
 ```
 php artisan workflow:delete RegisterUser --force
 ```
+
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Testing
+
+``` bash
+composer test
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+
+## Security
+
+If you discover any security related issues, please email andrea.marco.sartori@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [Andrea Marco Sartori][link-author]
+- [All Contributors][link-contributors]
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[ico-author]: http://img.shields.io/badge/author-@cerbero90-blue.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/cerbero/Workflow.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/cerbero90/Workflow/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cerbero90/Workflow.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/cerbero90/Workflow.svg?style=flat-square
+[ico-styleci]: https://styleci.io/repos/21942909/shield
+[ico-downloads]: https://img.shields.io/packagist/dt/cerbero/Workflow.svg?style=flat-square
+[ico-gratipay]: https://img.shields.io/gratipay/cerbero.svg?style=flat-square
+[ico-sensiolabs]: https://insight.sensiolabs.com/projects/608e8d86-9eae-411c-8b2c-6dcaba5814a4/big.png
+
+[link-author]: https://twitter.com/cerbero90
+[link-packagist]: https://packagist.org/packages/cerbero/Workflow
+[link-travis]: https://travis-ci.org/cerbero90/Workflow
+[link-scrutinizer]: https://scrutinizer-ci.com/g/cerbero90/Workflow/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/cerbero90/Workflow
+[link-styleci]: https://styleci.io/repos/21942909
+[link-downloads]: https://packagist.org/packages/cerbero/Workflow
+[link-gratipay]: https://gratipay.com/cerbero
+[link-sensiolabs]: https://insight.sensiolabs.com/projects/608e8d86-9eae-411c-8b2c-6dcaba5814a4
+[link-contributors]: ../../contributors
