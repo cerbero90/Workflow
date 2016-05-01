@@ -1,17 +1,21 @@
-<?php namespace Cerbero\Workflow\Facades;
+<?php
 
-use \Illuminate\Support\Facades\Facade;
+namespace Cerbero\Workflow\Facades;
+
+use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Cerbero\Workflow\Workflow
  */
-class Workflow extends Facade {
-
-	/**
-	 * Get the registered name of the component.
-	 *
-	 * @return string
-	 */
-	protected static function getFacadeAccessor() { return 'cerbero.workflow'; }
-
+class Workflow extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'cerbero.workflow';
+    }
 }

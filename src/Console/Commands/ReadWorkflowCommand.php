@@ -1,81 +1,84 @@
-<?php namespace Cerbero\Workflow\Console\Commands;
+<?php
 
-use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
-use Symfony\Component\Console\Input\InputArgument;
+namespace Cerbero\Workflow\Console\Commands;
+
 use Cerbero\Workflow\Console\Drawing\Drawer;
+use Cerbero\Workflow\Repositories\PipelineRepositoryInterface;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputArgument;
 
-class ReadWorkflowCommand extends Command {
+class ReadWorkflowCommand extends Command
+{
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'workflow:read';
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'workflow:read';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Show an existing workflow';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Show an existing workflow';
+    /**
+     * @author	Andrea Marco Sartori
+     *
+     * @var Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines	Pipeline repository.
+     */
+    protected $pipelines;
 
-	/**
-	 * @author	Andrea Marco Sartori
-	 * @var		Cerbero\Workflow\Repositories\PipelineRepositoryInterface	$pipelines	Pipeline repository.
-	 */
-	protected $pipelines;
+    /**
+     * @author	Andrea Marco Sartori
+     *
+     * @var Cerbero\Workflow\Console\Drawing\Drawer $drawer	The workflow drawer.
+     */
+    protected $drawer;
 
-	/**
-	 * @author	Andrea Marco Sartori
-	 * @var		Cerbero\Workflow\Console\Drawing\Drawer	$drawer	The workflow drawer.
-	 */
-	protected $drawer;
+    /**
+     * Set the dependencies.
+     *
+     * @param \Cerbero\Workflow\Repositories\PipelineRepositoryInterface $pipelines
+     * @param \Cerbero\Workflow\Console\Drawing\Drawer                   $drawer
+     *
+     * @return void
+     */
+    public function __construct(PipelineRepositoryInterface $pipelines, Drawer $drawer)
+    {
+        parent::__construct();
 
-	/**
-	 * Set the dependencies.
-	 *
-	 * @param  \Cerbero\Workflow\Repositories\PipelineRepositoryInterface  $pipelines
-	 * @param  \Cerbero\Workflow\Console\Drawing\Drawer  $drawer
-	 * @return void
-	 */
-	public function __construct(PipelineRepositoryInterface $pipelines, Drawer $drawer)
-	{
-		parent::__construct();
+        $this->pipelines = $pipelines;
 
-		$this->pipelines = $pipelines;
+        $this->drawer = $drawer;
+    }
 
-		$this->drawer = $drawer;
-	}
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
+        $workflow = ucfirst($this->argument('name'));
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-		$workflow = ucfirst($this->argument('name'));
+        if (!$this->pipelines->exists($workflow)) {
+            return $this->error("The workflow [$workflow] does not exist.");
+        }
 
-		if( ! $this->pipelines->exists($workflow))
-		{
-			return $this->error("The workflow [$workflow] does not exist.");
-		}
+        $this->info($this->drawer->draw($workflow));
+    }
 
-		$this->info($this->drawer->draw($workflow));
-	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return [
-			['name', InputArgument::REQUIRED, 'The name of the workflow.'],
-		];
-	}
-
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['name', InputArgument::REQUIRED, 'The name of the workflow.'],
+        ];
+    }
 }

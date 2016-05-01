@@ -1,184 +1,186 @@
-<?php namespace Cerbero\Workflow;
+<?php
 
-use Cerbero\Workflow\WorkflowRunner;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
+namespace Cerbero\Workflow;
+
 use Cerbero\Workflow\Inflectors\Inflector;
-use Cerbero\Workflow\Wrappers\SymfonyYamlParser;
 use Cerbero\Workflow\Repositories\YamlPipelineRepository;
 use Cerbero\Workflow\Wrappers\LaravelTraitNamespaceDetector;
+use Cerbero\Workflow\Wrappers\SymfonyYamlParser;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Workflow service provider.
  *
  * @author	Andrea Marco Sartori
  */
-class WorkflowServiceProvider extends ServiceProvider {
+class WorkflowServiceProvider extends ServiceProvider
+{
+    /**
+     * @author	Andrea Marco Sartori
+     *
+     * @var array $commands	List of registered commands.
+     */
+    protected $commands = [
+        'cerbero.workflow.create',
+        'cerbero.workflow.read',
+        'cerbero.workflow.update',
+        'cerbero.workflow.delete',
+    ];
 
-	/**
-	 * @author	Andrea Marco Sartori
-	 * @var		array	$commands	List of registered commands.
-	 */
-	protected $commands = [
-		'cerbero.workflow.create',
-		'cerbero.workflow.read',
-		'cerbero.workflow.update',
-		'cerbero.workflow.delete',
-	];
+    /**
+     * Boot the package up.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishConfig();
 
-	/**
-	 * Boot the package up.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	public function boot()
-	{
-		$this->publishConfig();
+        $this->commands($this->commands);
 
-		$this->commands($this->commands);
+        $facade = 'Cerbero\Workflow\Facades\Workflow';
 
-		$facade = 'Cerbero\Workflow\Facades\Workflow';
+        AliasLoader::getInstance()->alias('Workflow', $facade);
+    }
 
-		AliasLoader::getInstance()->alias('Workflow', $facade);
-	}
+    /**
+     * Publish the configuration file.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function publishConfig()
+    {
+        $config = __DIR__.'/config/workflow.php';
 
-	/**
-	 * Publish the configuration file.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function publishConfig()
-	{
-		$config = __DIR__ . '/config/workflow.php';
+        $this->publishes([$config => config_path('workflow.php')]);
 
-		$this->publishes([$config => config_path('workflow.php')]);
+        $this->mergeConfigFrom($config, 'workflow');
+    }
 
-		$this->mergeConfigFrom($config, 'workflow');
-	}
+    /**
+     * Register the services.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerPipelineRepository();
 
-	/**
-	 * Register the services.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	public function register()
-	{
-		$this->registerPipelineRepository();
+        $this->registerInflector();
 
-		$this->registerInflector();
+        $this->registerDispatcher();
 
-		$this->registerDispatcher();
+        $this->registerWorkflow();
 
-		$this->registerWorkflow();
+        $this->registerWorkflowRunnersHook();
 
-		$this->registerWorkflowRunnersHook();
+        $this->registerCommands();
+    }
 
-		$this->registerCommands();
-	}
+    /**
+     * Register the pipeline repository.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function registerPipelineRepository()
+    {
+        $abstract = 'Cerbero\Workflow\Repositories\PipelineRepositoryInterface';
 
-	/**
-	 * Register the pipeline repository.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerPipelineRepository()
-	{
-		$abstract = 'Cerbero\Workflow\Repositories\PipelineRepositoryInterface';
+        $this->app->bind($abstract, function ($app) {
+            return new YamlPipelineRepository(
+                new SymfonyYamlParser(),
 
-		$this->app->bind($abstract, function($app)
-		{
-			return new YamlPipelineRepository
-			(
-				new SymfonyYamlParser,
+                new \Illuminate\Filesystem\Filesystem(),
 
-				new \Illuminate\Filesystem\Filesystem,
+                config('workflow.path')
+            );
+        });
+    }
 
-				config('workflow.path')
-			);
-		});
-	}
+    /**
+     * Register the inflector.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function registerInflector()
+    {
+        $abstract = 'Cerbero\Workflow\Inflectors\InflectorInterface';
 
-	/**
-	 * Register the inflector.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerInflector()
-	{
-		$abstract = 'Cerbero\Workflow\Inflectors\InflectorInterface';
+        $this->app->bind($abstract, function () {
+            return new Inflector(new LaravelTraitNamespaceDetector());
+        });
+    }
 
-		$this->app->bind($abstract, function()
-		{
-			return new Inflector(new LaravelTraitNamespaceDetector);
-		});
-	}
+    /**
+     * Register the bus dispatcher.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function registerDispatcher()
+    {
+        $abstract = 'Cerbero\Workflow\Wrappers\DispatcherInterface';
 
-	/**
-	 * Register the bus dispatcher.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerDispatcher()
-	{
-		$abstract = 'Cerbero\Workflow\Wrappers\DispatcherInterface';
+        $this->app->bind($abstract, function ($app) {
+            return $app['Cerbero\Workflow\Wrappers\MarshalDispatcher'];
+        });
+    }
 
-		$this->app->bind($abstract, function($app)
-		{
-			return $app['Cerbero\Workflow\Wrappers\MarshalDispatcher'];
-		});
-	}
+    /**
+     * Register the package main class.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function registerWorkflow()
+    {
+        $this->app->singleton('cerbero.workflow', function ($app) {
+            return $app['Cerbero\Workflow\Workflow'];
+        });
+    }
 
-	/**
-	 * Register the package main class.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerWorkflow()
-	{
-		$this->app->singleton('cerbero.workflow', function($app)
-		{
-			return $app['Cerbero\Workflow\Workflow'];
-		});
-	}
+    /**
+     * Register the hook for the workflow runners.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function registerWorkflowRunnersHook()
+    {
+        $this->app->afterResolving(function (WorkflowRunner $runner, $app) {
+            $runner->setWorkflow($app['cerbero.workflow']);
+        });
+    }
 
-	/**
-	 * Register the hook for the workflow runners.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerWorkflowRunnersHook()
-	{
-		$this->app->afterResolving(function(WorkflowRunner $runner, $app)
-		{
-			$runner->setWorkflow($app['cerbero.workflow']);
-		});
-	}
+    /**
+     * Register the console commands.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return void
+     */
+    private function registerCommands()
+    {
+        foreach ($this->commands as $command) {
+            $name = ucfirst(last(explode('.', $command)));
 
-	/**
-	 * Register the console commands.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	void
-	 */
-	private function registerCommands()
-	{
-		foreach ($this->commands as $command)
-		{
-			$name = ucfirst(last(explode('.', $command)));
-
-			$this->app->singleton($command, function($app) use($name)
-			{
-				return $app["Cerbero\Workflow\Console\Commands\\{$name}WorkflowCommand"];
-			});
-		}
-	}
-
+            $this->app->singleton($command, function ($app) use ($name) {
+                return $app["Cerbero\Workflow\Console\Commands\\{$name}WorkflowCommand"];
+            });
+        }
+    }
 }
