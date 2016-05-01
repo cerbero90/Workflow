@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 $I = new FunctionalTester($scenario);
 $I->wantTo('update an existing workflow');
 
