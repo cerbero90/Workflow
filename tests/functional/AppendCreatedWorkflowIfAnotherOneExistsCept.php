@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 $I = new FunctionalTester($scenario);
 $I->wantTo('append the newly created workflow if another one exists');
 

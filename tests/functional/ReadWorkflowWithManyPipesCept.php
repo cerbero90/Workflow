@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 $I = new FunctionalTester($scenario);
 $I->wantTo('see a workflow with many pipes');
 

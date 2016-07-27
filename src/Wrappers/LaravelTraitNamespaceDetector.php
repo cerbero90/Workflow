@@ -1,4 +1,6 @@
-<?php namespace Cerbero\Workflow\Wrappers;
+<?php
+
+namespace Cerbero\Workflow\Wrappers;
 
 use Illuminate\Console\AppNamespaceDetectorTrait;
 
@@ -7,21 +9,21 @@ use Illuminate\Console\AppNamespaceDetectorTrait;
  *
  * @author	Andrea Marco Sartori
  */
-class LaravelTraitNamespaceDetector implements NamespaceDetectorInterface {
+class LaravelTraitNamespaceDetector implements NamespaceDetectorInterface
+{
+    use AppNamespaceDetectorTrait;
 
-	use AppNamespaceDetectorTrait;
+    /**
+     * Detect the namespace used by an application.
+     *
+     * @author	Andrea Marco Sartori
+     *
+     * @return string
+     */
+    public function detect()
+    {
+        $namespace = $this->getAppNamespace();
 
-	/**
-	 * Detect the namespace used by an application.
-	 *
-	 * @author	Andrea Marco Sartori
-	 * @return	string
-	 */
-	public function detect()
-	{
-		$namespace = $this->getAppNamespace();
-
-		return rtrim($namespace, '\\');
-	}
-
+        return rtrim($namespace, '\\');
+    }
 }

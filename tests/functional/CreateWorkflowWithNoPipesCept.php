@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 $I = new FunctionalTester($scenario);
 $I->wantTo('create a workflow with no pipes');
 
